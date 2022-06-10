@@ -4,12 +4,11 @@ public class Basket {
     private String items = "";
     private int totalPrice = 0;
     private int limit;
-    private  int price = 0;
+    private  int price;
     private static int fullPrice = 0;
     private static int fullItems = 0;
     private static double averagePrice = 0;
-
-    private static double singleAveragePrice = 0;
+    private static double basketAveragePrice = 0;
 
     public Basket() {
         increaseCount(1);
@@ -35,15 +34,15 @@ public class Basket {
     public static int getFullPrice() {
         return fullPrice;
     }
-
     public static  int getFullItems() {
         return fullItems;
     }
-
+    public static void setFullItems (int fullItems) {
+        Basket.fullItems = Basket.fullItems + count;
+    }
     public void add(String name, int price) {
         add(name, price, count);
     }
-
     public void add(String name, int price, int count) {
         boolean error = false;
         if (contains(name)) {
@@ -58,10 +57,10 @@ public class Basket {
         }
         items = items + "\n" + name + "-" + count + "шт.  " + price;
         totalPrice = totalPrice + count * price;
-        Basket.fullPrice = Basket.fullPrice + price * count;
-        Basket.fullItems = Basket.fullItems + count;
-        Basket.averagePrice = Basket.fullPrice / Basket.fullItems;
-        Basket.singleAveragePrice = totalPrice / this.count;
+        setFullItems(fullItems);
+        Basket.fullPrice = Basket.fullPrice + price  * count;
+        Basket.basketAveragePrice = totalPrice / this.count;
+        setAveragePrice(averagePrice);
     }
     public void clear() {
         items = "";
@@ -78,16 +77,19 @@ public class Basket {
     public static double getAveragePrice() {
         return averagePrice;
     }
-    public static double getSingleAveragePrice() {
-        return singleAveragePrice;
+    public static void setAveragePrice(double averagePrice) {
+        Basket.averagePrice = Basket.fullPrice / Basket.fullItems;
     }
-
+    public static double getBasketAveragePrice() {
+        return basketAveragePrice;
+    }
     public void print() {
         System.out.println(items);
         if (items.isEmpty()) {
             System.out.println("Корзина пуста");
         } else {
             System.out.println("Стоимость товаров в корзине: " +  getTotalPrice());
+            System.out.println("Средняя стоимость товаров: " + Basket.getBasketAveragePrice());
         }
     }
 }
