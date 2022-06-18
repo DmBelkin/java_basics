@@ -12,6 +12,7 @@ public class Mycpu {
         this.coreCount = coreCount;
     }
     public static Manufacturer getManufacturer() {
+        manufacturer = Manufacturer.valueOf("ALTERA");
         return manufacturer;
     }
     public int getCoreCount() {

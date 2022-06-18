@@ -8,7 +8,6 @@ public class Basket {
     private static int fullPrice = 0;
     private static int fullItems = 0;
     private static double averagePrice = 0;
-    private static double basketAveragePrice = 0;
 
     public Basket() {
         increaseCount(1);
@@ -59,8 +58,14 @@ public class Basket {
         totalPrice = totalPrice + count * price;
         setFullItems(fullItems);
         Basket.fullPrice = Basket.fullPrice + price  * count;
-        Basket.basketAveragePrice = totalPrice / this.count;
+        double basketAveragePrice = totalPrice / this.count;
         setAveragePrice(averagePrice);
+        /**
+         * Доработка по замечаниям преподавателя
+         */
+
+        System.out.println("Средняя стоимость товаров: " + basketAveragePrice);
+        System.out.println();
     }
     public void clear() {
         items = "";
@@ -80,16 +85,13 @@ public class Basket {
     public static void setAveragePrice(double averagePrice) {
         Basket.averagePrice = Basket.fullPrice / Basket.fullItems;
     }
-    public static double getBasketAveragePrice() {
-        return basketAveragePrice;
-    }
     public void print() {
         System.out.println(items);
         if (items.isEmpty()) {
             System.out.println("Корзина пуста");
         } else {
             System.out.println("Стоимость товаров в корзине: " +  getTotalPrice());
-            System.out.println("Средняя стоимость товаров: " + Basket.getBasketAveragePrice());
+
         }
     }
 }

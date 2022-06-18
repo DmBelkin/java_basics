@@ -4,12 +4,13 @@ public class Mymonitor {
     private static Monitortype monitortype;
     private final int weight;
 
-    public Mymonitor(int diag, Monitortype monitortype, int weight) {
+    public Mymonitor( Monitortype monitortype, int diag, int weight) {
         this.diag = diag;
         this.monitortype = monitortype;
         this.weight = weight;
     }
     public static Monitortype getMonitortype() {
+        monitortype = Monitortype.valueOf("IPS");
         return monitortype;
     }
     public int getDiag(){

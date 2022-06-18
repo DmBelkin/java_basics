@@ -12,6 +12,7 @@ public class Ram {
         this.weight = weight;
     }
     public static Ramtype getRamtype() {
+        ramtype = Ramtype.valueOf("DDR3");
         return ramtype;
     }
     public int getMemorySize() {

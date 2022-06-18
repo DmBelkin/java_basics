@@ -23,10 +23,6 @@ public class Main {
         basket2.print();
         System.out.println();
 
-//        Basket basket3 = new Basket("Булочка", 50);
-//        basket3.print();
-//        System.out.println();
-
         Session session = new Session();
 
         System.out.println("Общее количество товаров: " + Basket.getFullItems());
