@@ -1,34 +1,37 @@
-import java.util.PrimitiveIterator;
-
 public class Ram {
 
-    public static Ramtype ramtype;
-    private final int memorySize;
-    private final int weight;
+    private Ramtype ramType;
+    private final int ramMemorySize;
+    private final int ramWeight;
 
-    public Ram (Ramtype ramtype, int memorySize, int weight) {
-        this.ramtype = ramtype;
-        this.memorySize = memorySize;
-        this.weight = weight;
+    public Ram(Ramtype ramtype, int ramMemorySize, int ramWeight) {
+        this.ramType = ramtype;
+        this.ramMemorySize = ramMemorySize;
+        this.ramWeight = ramWeight;
     }
-    public static Ramtype getRamtype() {
-        ramtype = Ramtype.valueOf("DDR3");
-        return ramtype;
+
+    public void setRamType(Ramtype ramtype) {
+        this.ramType = ramtype;
     }
-    public int getMemorySize() {
-        return memorySize;
+    public Ramtype getRamType() {
+        return ramType;
     }
-    public int getWeight() {
-        return weight;
+    public Ram setMemorySize(int ramMemorySize) {
+        return new Ram(ramType, ramMemorySize, ramWeight);
     }
-    public String print() {
-        System.out.println("Оперативная память: ");
-        String print = "Тип: " + getRamtype() + "\n" + "Объем: " + getMemorySize() + "Gb" + "\n" + "Вес: " + getWeight() + "g";
-        System.out.println(print);
-        System.out.println();
+    public int getRamMemorySize() {
+        return ramMemorySize;
+    }
+    public Ram setRamWeight(int ramWeight ) {
+        return new Ram(ramType, ramMemorySize, ramWeight);
+    }
+    public int getRamWeight() {
+        return ramWeight;
+    }
+
+    public String print(String print) {
+        print = "Оперативная память: " + "\n" + "Тип: " + ramType + "\n" + "Объем: " +
+                ramMemorySize + "\n" + "Вес: " + ramWeight;
         return print;
     }
-
 }
-
-

@@ -1,37 +1,40 @@
-
 public class Keyboard {
+    private final int keyboardWeight;
+    private KeyboardType type;
+    private KeyboardLight light;
 
-    private  KeyboardLight light;
-    private  KeyboardType type;
-    private final int weight;
-
-    public Keyboard (KeyboardLight light, KeyboardType type, int weight) {
-        this.light = light;
+    public Keyboard( KeyboardType type, KeyboardLight light, int keyboardWeight) {
         this.type = type;
-        this.weight = weight;
+        this.light = light;
+        this.keyboardWeight = keyboardWeight;
     }
 
-    public static KeyboardLight getLight(KeyboardLight light) {
-        light = KeyboardLight.valueOf("PHIOLENT");
-         return light;
+
+    public Keyboard setKeyboardWeight(int keyboardWeight){
+        return new Keyboard(type, light, keyboardWeight);
+    }
+    public int getKeyboardWeight() {
+        return keyboardWeight;
     }
 
-    public static KeyboardType getType(KeyboardType type) {
-        type = KeyboardType.valueOf("ERGONOMIC");
-        return type;
+    public void setLight(KeyboardLight light) {
+        this.light = light;
     }
-    public int getWeight(int weight) {
-        return weight;
+    public KeyboardLight getLight() {
+        return light;
     }
 
-    public String print() {
-        System.out.println("Клавиатура: ");
-        String print = "Подсветка: " + getLight(light) + "\n" + "Тип: " + getType(type) + "\n" + "Вес: " + getWeight(weight) + "g";
-        System.out.println(print);
-        System.out.println();
-        return print;
+    public void setType(KeyboardType type) {
+        this.type = type;
     }
+    public KeyboardType getType() {
+        return  type;
+    }
+
+    public String print(String print){
+        print = "Клавиатура: " + "\n" + "Подсветка: " + light  + "\n" + "Тип: " + type
+                + "\n" + "Вес: " + keyboardWeight;
+        return  print;
+    }
+
 }
-/**
- * геттеры и сеттеры на переменные класса + логика наличия/отсутствия подсветки
- */

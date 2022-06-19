@@ -1,35 +1,36 @@
 
-
 public class main {
 
     public static void main(String[] args){
 
-        Computer computer = new Computer("Asus", "Aspire");
+
+        Computer computer = new Computer("Acer", "HighSpeed",
+                new Keyboard(KeyboardType.valueOf("GAMER"), KeyboardLight.valueOf("RED"), 230),
+                new Ram(Ramtype.valueOf("DDR4"), 4, 34),
+                new Monitor(Monitortype.valueOf("VA"), 17, 2300),
+                new Harddisk(Harddisktype.valueOf("SSD"), 2000, 156),
+                new Processor(Manufacturer.valueOf("INTEL"), 2.7, 4, 56));
         computer.toString();
-     //   computer.setKeyboard("RED", "ERGONOMIC", 340);
-        computer.addMonitor("IPS", 19, 1590);
-        computer.addRam("DDR1", 2, 54);
-        computer.addCpu("AMD", 3.2, 4, 57);
-        computer.addHarddisk("SSD", 1000, 145);
+        System.out.println();
 
-        Computer computer1 = new Computer("Sony", "Vaio");
+        Computer computer1 = new Computer("Acer", "HomeMaster",
+                new Keyboard(KeyboardType.valueOf("OFFICE"), KeyboardLight.valueOf("GREEN"), 340),
+                new Ram(Ramtype.valueOf("DDR2"), 256, 54),
+                new Monitor(Monitortype.valueOf("IPS"), 19, 1720),
+                new Harddisk(Harddisktype.valueOf("HDD"), 500, 300),
+                new Processor(Manufacturer.valueOf("AMD"), 1.8, 2, 75));
         computer1.toString();
-     //   computer1.setKeyboard("GREEN", "OFFICE", 560);
-        computer1.addMonitor("TN", 15, 4500);
-        computer1.addRam("DDR2", 512, 36);
-        computer1.addCpu("INTEL", 1.7, 2, 82);
-        computer1.addHarddisk("HDD", 320, 279);
+        System.out.println();
 
-        Computer computer2 = new Computer("Lenovo", "IdeaPad");
+        Computer computer2 = new Computer("Lenovo", "School",
+                new Keyboard(KeyboardType.valueOf("ERGONOMIC"), KeyboardLight.valueOf("PHIOLENT"), 400),
+                new Ram(Ramtype.valueOf("DDR3"), 2, 49),
+                new Monitor(Monitortype.valueOf("TN"), 22, 1900),
+                new Harddisk(Harddisktype.valueOf("SSD"), 250, 134),
+                new Processor(Manufacturer.valueOf("ALTERA"), 2.2, 4, 86));
         computer2.toString();
-     //   computer2.setKeyboard("PHIOLENT", "SLIM", 230);
-        computer2.addMonitor("VA", 30, 1200);
-        computer2.addRam("DDR4", 8, 34);
-        computer2.addCpu("INTEL", 2.9, 4, 56);
-        computer2.addHarddisk("SSD", 2000, 134);
+        System.out.println();
 
-        Computer computer3 = new Computer("ASUS", "ASPIRE");
-        computer3.toString();
 
 
     }
