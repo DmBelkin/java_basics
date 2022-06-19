@@ -14,8 +14,6 @@ public class Computer {
     //процессор
     private final Processor processor;
 
-    public static int totalweight = getTotalweight();
-
 
     public Computer(String vendor, String name, Keyboard keyboard, Ram ram, Monitor monitor, Harddisk harddisk, Processor processor) {
         this.vendor = vendor;
@@ -25,7 +23,10 @@ public class Computer {
         this.monitor = monitor;
         this.harddisk = harddisk;
         this.processor = processor;
+
     }
+
+
     public Computer setVendor(String vendor) {
         return new Computer(vendor, name, keyboard, ram,
                 monitor, harddisk, processor);
@@ -41,14 +42,15 @@ public class Computer {
         return name;
     }
 
-    public static int getTotalweight() {
-//        int keysWeight = Keyboard.
-        return totalweight;
+    public void getTotalWeight() {
+        int totalWeight = keyboard.getKeyboardWeight() + monitor.getMonitorWeight() + harddisk.getHdWeight() +
+                ram.getRamWeight() + processor.getCpuWeight();
+        System.out.println("Суммарный вес комплекта: " + totalWeight);
     }
 
     public String toString() {
         String toString = "Ваша конфигурация : " + "\n" + "Производитель: " + vendor + "\n" +
-                "Серия: " + name + "\n" + "Суммарный вес: " + totalweight;
+                "Серия: " + name + "\n";
         System.out.println(toString);
         System.out.println();
         System.out.println(keyboard.print(""));

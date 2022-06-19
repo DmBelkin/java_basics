@@ -12,6 +12,8 @@ public class main {
                 new Processor(Manufacturer.valueOf("INTEL"), 2.7, 4, 56));
         computer.toString();
         System.out.println();
+        computer.getTotalWeight();
+        System.out.println();
 
         Computer computer1 = new Computer("Acer", "HomeMaster",
                 new Keyboard(KeyboardType.valueOf("OFFICE"), KeyboardLight.valueOf("GREEN"), 340),
@@ -20,6 +22,8 @@ public class main {
                 new Harddisk(Harddisktype.valueOf("HDD"), 500, 300),
                 new Processor(Manufacturer.valueOf("AMD"), 1.8, 2, 75));
         computer1.toString();
+        System.out.println();
+        computer1.getTotalWeight();
         System.out.println();
 
         Computer computer2 = new Computer("Lenovo", "School",
@@ -30,8 +34,7 @@ public class main {
                 new Processor(Manufacturer.valueOf("ALTERA"), 2.2, 4, 86));
         computer2.toString();
         System.out.println();
-
-
-
+        computer2.getTotalWeight();
+        System.out.println();
     }
 }
