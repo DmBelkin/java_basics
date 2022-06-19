@@ -28,7 +28,8 @@ public class Main {
         System.out.println("Общее количество товаров: " + Basket.getFullItems());
         System.out.println("Общая стоимость товаров: " + Basket.getFullPrice());
         System.out.println("Количество корзин: " + Basket.getCount());
-        System.out.println("Средняя цена товаров во всех корзинах: " + Basket.getAveragePrice());
+        System.out.println("Средняя стоимоть всех товаров: " + Basket.getAveragePrice());
+
 
     }
 }
