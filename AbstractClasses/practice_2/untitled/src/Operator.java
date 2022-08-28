@@ -3,7 +3,7 @@ public class Operator extends Company implements Employee{
     private final String name;
     private final String surName;
     private final String family;
-    private final double monthSalary;
+    private  double monthSalary;
 
     public Operator (String name, String surName, String family, double monthSalary) {
         this.name = name;
@@ -33,16 +33,14 @@ public class Operator extends Company implements Employee{
     public String getFamily () {
         return family;
     }
-    public Operator setMonthSalary (double monthSalary) {
-        return new Operator(name, surName, family, monthSalary);
+    public void setMonthSalary (double monthSalary) {
     }
-
-    public String toString() {
-        return name + "  " + surName + "  " + family + "  " + "ќператор" + "  з.п.: " + getMonthSalary();
-    }
-
     @Override
     public double getMonthSalary() {
         return monthSalary;
+    }
+
+    public String toString() {
+        return name + "  " + surName + "  " + family + "  " + "ќператор" + "  з.п.: " + monthSalary;
     }
 }

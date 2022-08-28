@@ -1,15 +1,16 @@
 public class TopManager extends Operator implements Employee {
 
 
-
-    public TopManager(String name, String surName, String family, int salary) {
+    public TopManager(String name, String surName, String family, double salary) {
         super(name, surName, family, salary);
     }
 
     @Override
-    public Operator setMonthSalary(double monthSalary) {
-        monthSalary = monthSalary + ((super.getIncome() * 0.05));
-        return super.setMonthSalary(monthSalary);
+    public void setMonthSalary(double monthSalary) {
+        if (super.getIncome() > 10000000) {
+            monthSalary = monthSalary + (monthSalary * 1.5);
+        }
+        super.setMonthSalary(monthSalary);
     }
 
     @Override

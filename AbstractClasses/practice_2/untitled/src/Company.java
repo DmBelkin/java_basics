@@ -4,61 +4,53 @@ import java.util.List;
 
 public class Company {
 
-    protected ArrayList <Employee> employees = new ArrayList<>();
-
+    protected ArrayList<Employee> employees = new ArrayList<>();
+    protected  ArrayList<Double> sortedSalaryStaff = new ArrayList<>();
     protected static int count;
-
-    Employee employee;
-
     protected static double income;
 
     public Company() {
     }
 
-    public List<Employee> getTopSalaryStaff (int count) {
-        ArrayList<Double> sortedSalaryStaff = new ArrayList<>();
+    public List<Employee> getTopSalaryStaff(int count) {
         for (Employee employeeInfo : employees) {
             sortedSalaryStaff.add(employeeInfo.getMonthSalary());
-            if (sortedSalaryStaff.size() == count) {
-                break;
-            }
         }
         Collections.sort(sortedSalaryStaff);
-        for (int i = 0; i <= sortedSalaryStaff.size() - 1; i++)  {
+        for (int i = sortedSalaryStaff.size() - 1; i >= sortedSalaryStaff.size() - count; i--) {
             System.out.println(sortedSalaryStaff.get(i));
-    }
+        }
         return new ArrayList<>();
     }
 
-    public List<Employee> getLowestSalaryStaff (int count) {
-        ArrayList<Double> sortedSalaryStaff = new ArrayList<>();
-        for (Employee employeeInfo : employees) {
-            sortedSalaryStaff.add(employeeInfo.getMonthSalary());
-            if (sortedSalaryStaff.size() == count) {
-                break;
-            }
+    public List<Employee> getLowestSalaryStaff(int count) {
+        for (Employee employeeInfo1 : employees) {
+            sortedSalaryStaff.add(employeeInfo1.getMonthSalary());
         }
         Collections.sort(sortedSalaryStaff);
-        for (int i = 0; i <= sortedSalaryStaff.size() - 1; i++)  {
+        for (int i = 1; i <= count; i++) {
             System.out.println(sortedSalaryStaff.get(i));
         }
-        return  new ArrayList<>();
+        return new ArrayList<>();
     }
 
-    public Employee hire (Employee employee) {
-        employee.getMonthSalary();
+    public Employee hire(Employee employee) {
         employees.add(employee);
-      return new Employee() {
-          @Override
-          public double getMonthSalary() {
-              return 0;
-          }
-      };
+        System.out.println(employee);
+        return new Employee() {
+            @Override
+            public double getMonthSalary() {
+                return 0;
+            }
+        };
     }
 
     public Employee fire(Employee employee) {
-        if (employees.contains(employee)) {
-            employees.remove(employee);
+        for (int i = 0; i <= employees.size() - 1; i ++) {
+            if (employees.get(i).toString().equals(employee.toString())) {
+                employees.remove(i);
+                System.out.println("Fired");
+            }
         }
         return new Employee() {
             @Override
@@ -69,11 +61,11 @@ public class Company {
     }
 
     public double getIncome() {
-        income = 15000000 * Math.random();
+        income = 20000000 * Math.random();
         return income;
     }
 
-    public String  toString() {
+    public String toString() {
         if (employees.isEmpty()) {
             System.out.println("Список пуст");
         }
