@@ -17,8 +17,8 @@ public class Main {
                 break;
             } else {
                 command = input;
+                company.getIncome();
                 getCommand(command);
-
             }
         }
     }
@@ -29,14 +29,14 @@ public class Main {
             case "Hire Operator":
                 System.out.println("Введите ФИО, затем заработную плату");
                 Operator operator = new Operator(
-                        scanner.nextLine(), scanner.nextLine(), scanner.nextLine(), scanner.nextDouble()
+                        scanner.nextLine(), scanner.nextLine(), scanner.nextLine(), scanner.nextInt()
                 );
                 company.hire(operator);
                 break;
             case "Hire Manager":
                 System.out.println("Введите ФИО, затем заработную плату");
                 Manager manager = new Manager(
-                        scanner.nextLine(), scanner.nextLine(), scanner.nextLine(), scanner.nextDouble()
+                        scanner.nextLine(), scanner.nextLine(), scanner.nextLine(), scanner.nextInt()
                 );
                 company.hire(manager);
                 break;
@@ -49,30 +49,30 @@ public class Main {
                 break;
             case "Highest salaries":
                 company.count = scanner.nextInt();
-                company.getTopSalaryStaff(company.count);
+                System.out.println(company.getTopSalaryStaff(company.count));
                 break;
             case "Lowest salaries":
                 company.count = scanner.nextInt();
-                company.getLowestSalaryStaff(company.count);
+                System.out.println(company.getLowestSalaryStaff(company.count));
                 break;
             case "Fire":
                 System.out.println("Введите должность");
                 String jobTitle = scanner.nextLine();
                 if (jobTitle.equals("Operator")) {
                     System.out.println("Введите ФИО, затем З.П.");
-                    Operator compOperator = new Operator(scanner.nextLine(), scanner.nextLine(), scanner.nextLine(),
-                            scanner.nextDouble());
-                    company.fire(compOperator);
+                    Operator fireOperator = new Operator(scanner.nextLine(), scanner.nextLine(), scanner.nextLine(),
+                            scanner.nextInt());
+                    company.fire(fireOperator);
                 } else if (jobTitle.equals("Manager")) {
                     System.out.println("Введите ФИО, затем З.П.");
-                    Manager compManager = new Manager(scanner.nextLine(), scanner.nextLine(), scanner.nextLine(),
-                            scanner.nextDouble());
-                    company.fire(compManager);
+                    Manager fireManager = new Manager(scanner.nextLine(), scanner.nextLine(), scanner.nextLine(),
+                            scanner.nextInt());
+                    company.fire(fireManager);
                 } else if (jobTitle.equals("Topmanager")) {
                     System.out.println("Введите ФИО, затем З.П.");
-                    TopManager compTopManager = new TopManager(scanner.nextLine(), scanner.nextLine(),
-                            scanner.nextLine(), scanner.nextDouble());
-                    company.fire(compTopManager);
+                    TopManager fireTopManager = new TopManager(scanner.nextLine(), scanner.nextLine(),
+                            scanner.nextLine(), scanner.nextInt());
+                    company.fire(fireTopManager);
                 }
                 break;
             case "List" :
@@ -93,9 +93,10 @@ public class Main {
         String[] femaleName = {"Мария", "Марина", "Виктория", "Алина", "Валерия", "Наталья", "Яна", "Лидия", "Анна"};
         String[] femaleSurName = {"Ивановна", "Васильевна", "Александровна", "Валерьевна", "Вениаминовна", "Никитична"};
         String[] femaleFamily = {"Иванова", "Петрова", "Александрова", "Ильина", "Васильева", "Сергеева", "Ларина"};
-        double operatorSalary = 130700;
-        double managerSalary = 150000;
-        double topManagerSalary = 180000;
+        int operatorSalary = 130700;
+        int managerSalary = 150000;
+        int topManagerSalary = 180000;
+        company.getIncome();
 
         for (String name : maleName) {
             for (String surName : maleSurName) {

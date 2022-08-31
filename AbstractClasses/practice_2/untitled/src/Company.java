@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Company {
 
     protected ArrayList<Employee> employees = new ArrayList<>();
-    protected  ArrayList<Double> sortedSalaryStaff = new ArrayList<>();
     protected static int count;
     protected static double income;
 
@@ -13,25 +13,16 @@ public class Company {
     }
 
     public List<Employee> getTopSalaryStaff(int count) {
-        for (Employee employeeInfo : employees) {
-            sortedSalaryStaff.add(employeeInfo.getMonthSalary());
-        }
-        Collections.sort(sortedSalaryStaff);
-        for (int i = sortedSalaryStaff.size() - 1; i >= sortedSalaryStaff.size() - count; i--) {
-            System.out.println(sortedSalaryStaff.get(i));
-        }
-        return new ArrayList<>();
+        Comparator<Employee> comparator = (Employee o1, Employee o2) -> o2.getMonthSalary() - o1.getMonthSalary();
+        Collections.sort(employees, comparator);
+        return employees.subList(0, count);
     }
 
     public List<Employee> getLowestSalaryStaff(int count) {
-        for (Employee employeeInfo1 : employees) {
-            sortedSalaryStaff.add(employeeInfo1.getMonthSalary());
-        }
-        Collections.sort(sortedSalaryStaff);
-        for (int i = 1; i <= count; i++) {
-            System.out.println(sortedSalaryStaff.get(i));
-        }
-        return new ArrayList<>();
+        Comparator<Employee> comparator = (Employee o1, Employee o2) -> o2.getMonthSalary() - o1.getMonthSalary();
+        Collections.sort(employees, comparator);
+        return employees.subList(employees.size() - count, employees.size());
+
     }
 
     public Employee hire(Employee employee) {
@@ -39,8 +30,23 @@ public class Company {
         System.out.println(employee);
         return new Employee() {
             @Override
-            public double getMonthSalary() {
+            public int getMonthSalary() {
                 return 0;
+            }
+
+            @Override
+            public String getName() {
+                return getName();
+            }
+
+            @Override
+            public String getSurName() {
+                return getSurName();
+            }
+
+            @Override
+            public String getFamily() {
+                return getFamily();
             }
         };
     }
@@ -52,16 +58,31 @@ public class Company {
                 System.out.println("Fired");
             }
         }
-        return new Employee() {
-            @Override
-            public double getMonthSalary() {
-                return 0;
-            }
-        };
+       return new Employee() {
+           @Override
+           public int getMonthSalary() {
+               return 0;
+           }
+
+           @Override
+           public String getName() {
+               return null;
+           }
+
+           @Override
+           public String getSurName() {
+               return null;
+           }
+
+           @Override
+           public String getFamily() {
+               return null;
+           }
+       };
     }
 
     public double getIncome() {
-        income = 20000000 * Math.random();
+        income = 12345768;
         return income;
     }
 
@@ -75,4 +96,5 @@ public class Company {
         }
         return result;
     }
+
 }

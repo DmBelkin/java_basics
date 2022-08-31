@@ -1,18 +1,37 @@
 
-public class Manager extends Operator implements Employee {
+public class Manager implements Employee {
 
-    public Manager (String name, String surName, String family, double salary) {
-        super(name, surName, family, salary);
+    private final String name;
+    private final String surName;
+    private final String family;
+    private int monthSalary;
+
+    public Manager (String name, String surName, String family, int monthSalary) {
+        this.name = name;
+        this.surName = surName;
+        this.family = family;
+        this.monthSalary = monthSalary;
     }
 
     @Override
-    public void setMonthSalary(double monthSalary) {
-        super.setMonthSalary(monthSalary);
+    public int getMonthSalary() {
+        monthSalary = monthSalary + (int)(Company.income * 0.005);
+        return monthSalary;
     }
 
     @Override
-    public double getMonthSalary() {
-        return super.getMonthSalary();
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String getSurName() {
+        return surName;
+    }
+
+    @Override
+    public String getFamily() {
+        return family;
     }
 
     @Override

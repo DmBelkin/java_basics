@@ -1,6 +1,14 @@
 
 public interface Employee {
 
-    double getMonthSalary();
+    int getMonthSalary();
+
+    String toString();
+
+    String getName();
+
+    String getSurName();
+
+    String getFamily();
 }
 
