@@ -7,8 +7,8 @@ public interface Employee {
 
     String getName();
 
-    String getSurName();
+    String getPatronymic();
 
-    String getFamily();
+    String getSurname();
 }
 

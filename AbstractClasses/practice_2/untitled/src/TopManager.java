@@ -1,14 +1,14 @@
 public class TopManager implements Employee {
 
     private final String name;
+    private final String patronymic;
     private final String surName;
-    private final String family;
     private int monthSalary;
 
-    public TopManager (String name, String surName, String family, int monthSalary) {
+    public TopManager (String name, String patronymic, String surName, int monthSalary) {
         this.name = name;
+        this.patronymic = patronymic;
         this.surName = surName;
-        this.family = family;
         this.monthSalary = monthSalary;
     }
 
@@ -18,26 +18,26 @@ public class TopManager implements Employee {
     }
 
     @Override
-    public String getSurName() {
-        return surName;
+    public String getPatronymic() {
+        return patronymic;
     }
 
     @Override
-    public String getFamily() {
-        return family;
+    public String getSurname() {
+        return surName;
     }
 
     @Override
     public int getMonthSalary() {
         if (Company.income > 10000000) {
-            monthSalary = monthSalary + (int)(monthSalary * 1.5);
+            return monthSalary + (int)(monthSalary * 1.5);
         }
         return monthSalary;
     }
 
     @Override
     public String toString() {
-        String toString = getName() + "  " + getSurName() + "  " + getFamily() + "  " + "Топ менеджер" + "  з.п.: "
+        String toString = getName() + "  " + getPatronymic() + "  " + getSurname() + "  " + "Топ менеджер" + "  з.п.: "
                 + getMonthSalary();
         return toString;
     }

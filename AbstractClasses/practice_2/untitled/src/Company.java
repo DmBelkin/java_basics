@@ -9,18 +9,37 @@ public class Company {
     protected static int count;
     protected static double income;
 
-    public Company() {
+    public Company(double income) {
+        this.income = income;
     }
+
+
 
     public List<Employee> getTopSalaryStaff(int count) {
         Comparator<Employee> comparator = (Employee o1, Employee o2) -> o2.getMonthSalary() - o1.getMonthSalary();
         Collections.sort(employees, comparator);
+        int check = 0;
+        for (Employee employee : employees) {
+            check++;
+            System.out.println(employee.getMonthSalary());
+            if (check == count) {
+                break;
+            }
+        }
         return employees.subList(0, count);
     }
 
     public List<Employee> getLowestSalaryStaff(int count) {
         Comparator<Employee> comparator = (Employee o1, Employee o2) -> o2.getMonthSalary() - o1.getMonthSalary();
         Collections.sort(employees, comparator);
+        int check = 0;
+        for (int i = employees.size() - 1; i >= 0; i--) {
+            check++;
+            System.out.println(employees.get(i).getMonthSalary());
+            if (check == count) {
+                break;
+            }
+        }
         return employees.subList(employees.size() - count, employees.size());
 
     }
@@ -40,13 +59,13 @@ public class Company {
             }
 
             @Override
-            public String getSurName() {
-                return getSurName();
+            public String getPatronymic() {
+                return getPatronymic();
             }
 
             @Override
-            public String getFamily() {
-                return getFamily();
+            public String getSurname() {
+                return getSurname();
             }
         };
     }
@@ -70,19 +89,18 @@ public class Company {
            }
 
            @Override
-           public String getSurName() {
+           public String getPatronymic() {
                return null;
            }
 
            @Override
-           public String getFamily() {
+           public String getSurname() {
                return null;
            }
        };
     }
 
     public double getIncome() {
-        income = 12345768;
         return income;
     }
 

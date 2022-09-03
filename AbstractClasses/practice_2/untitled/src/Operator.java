@@ -1,14 +1,14 @@
 public class Operator implements Employee{
 
     private final String name;
+    private final String patronymic;
     private final String surName;
-    private final String family;
     private int monthSalary;
 
-    public Operator (String name, String surName, String family, int monthSalary) {
+    public Operator (String name, String patronymic, String surName, int monthSalary) {
         this.name = name;
+        this.patronymic = patronymic;
         this.surName = surName;
-        this.family = family;
         this.monthSalary = monthSalary;
     }
     @Override
@@ -16,12 +16,12 @@ public class Operator implements Employee{
         return  name;
     }
     @Override
-    public String getSurName () {
-        return  surName;
+    public String getPatronymic () {
+        return  patronymic;
     }
     @Override
-    public String getFamily () {
-        return family;
+    public String getSurname () {
+        return surName;
     }
     @Override
     public int getMonthSalary() {
@@ -29,6 +29,6 @@ public class Operator implements Employee{
     }
     @Override
     public String toString() {
-        return name + "  " + surName + "  " + family + "  " + "ќператор" + "  з.п.: " + monthSalary;
+        return name + "  " + patronymic + "  " + surName + "  " + "ќператор" + "  з.п.: " + monthSalary;
     }
 }
