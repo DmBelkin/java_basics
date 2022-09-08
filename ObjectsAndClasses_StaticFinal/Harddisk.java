@@ -12,31 +12,17 @@ public class Harddisk {
         this.hdWeight = hdWeight;
     }
 
-    public Harddisk sethdType(Harddisktype harddisktype) {
-        return new Harddisk(harddisktype, hdMemorySize, hdWeight);
-    }
-
     public Harddisktype getHdType() {
         return hardDiskType;
-    }
-
-    public Harddisk setMemSize(int hdMemorySize) {
-        return new Harddisk(hardDiskType, hdMemorySize, hdWeight);
     }
 
     public int getMemSize() {
         return hdMemorySize;
     }
 
-    public Harddisk setWeight(int hdWeight) {
-        return new Harddisk(hardDiskType, hdMemorySize, hdWeight);
-    }
-
     public int getWeight() {
         return hdWeight;
     }
-
-
 
     public Harddisk getHdWeight(int hdWeight) {
         return new Harddisk(hardDiskType, hdMemorySize, hdWeight);

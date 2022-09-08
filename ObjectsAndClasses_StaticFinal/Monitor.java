@@ -10,32 +10,16 @@ public class Monitor {
         this.monitorWeight = monitorWeight;
     }
 
-    public Monitor setType(Monitortype type) {
-        return new Monitor(monitorType, diag, monitorWeight);
-    }
-
     public Monitortype getType() {
         return monitorType;
-    }
-
-    public Monitor setDiag(int diag) {
-        return new Monitor(monitorType, diag, monitorWeight);
     }
 
     public int getDiag() {
         return diag;
     }
 
-    public Monitor setWeight(int monitorWeight) {
-        return new Monitor(monitorType, diag, monitorWeight);
-    }
-
     public int getWeight() {
         return monitorWeight;
-    }
-
-    public Monitor getMonitorWeight(int monitorWeight) {
-        return new Monitor(monitorType, diag, monitorWeight);
     }
 
     public String toString() {

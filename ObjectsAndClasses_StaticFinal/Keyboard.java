@@ -9,25 +9,14 @@ public class Keyboard {
         this.keyboardWeight = keyboardWeight;
     }
 
-    public Keyboard setKeyType(KeyboardType type) {
-        return new Keyboard(type, light, keyboardWeight);
-    }
-
     public KeyboardType getKeyType() {
         return type;
-    }
-
-    public Keyboard setKeysLight(KeyboardLight light) {
-        return new Keyboard(type, light, keyboardWeight);
     }
 
     public KeyboardLight getKeysLight() {
         return light;
     }
 
-    public Keyboard setWeight(int keyboardWeight) {
-        return new Keyboard(type, light, keyboardWeight);
-    }
 
     public int getWeight() {
         return keyboardWeight;
