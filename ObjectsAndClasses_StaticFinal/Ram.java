@@ -1,8 +1,10 @@
+
+
 public class Ram {
 
-    private Ramtype ramType;
+    private final Ramtype ramType;
     private final int ramMemorySize;
-    private final int ramWeight;
+    protected final int ramWeight;
 
     public Ram(Ramtype ramtype, int ramMemorySize, int ramWeight) {
         this.ramType = ramtype;
@@ -10,28 +12,38 @@ public class Ram {
         this.ramWeight = ramWeight;
     }
 
-    public void setRamType(Ramtype ramtype) {
-        this.ramType = ramtype;
+    public Ram setType(Ramtype type) {
+        return new Ram(ramType, ramMemorySize, ramWeight);
     }
-    public Ramtype getRamType() {
+
+    public Ramtype getType() {
         return ramType;
     }
-    public Ram setMemorySize(int ramMemorySize) {
+
+    public Ram setSize(int ramMemorySize) {
         return new Ram(ramType, ramMemorySize, ramWeight);
     }
-    public int getRamMemorySize() {
-        return ramMemorySize;
+
+    public int getSize() {
+        return  ramMemorySize;
     }
-    public Ram setRamWeight(int ramWeight ) {
+
+    public Ram setWeight(int ramWeight) {
         return new Ram(ramType, ramMemorySize, ramWeight);
     }
-    public int getRamWeight() {
+
+    public int getWeight() {
         return ramWeight;
     }
 
-    public String print(String print) {
-        print = "Оперативная память: " + "\n" + "Тип: " + ramType + "\n" + "Объем: " +
-                ramMemorySize + "\n" + "Вес: " + ramWeight;
-        return print;
+    public Ram setRamWeight(int ramWeight ) {
+        return new Ram(ramType, ramMemorySize, ramWeight);
+    }
+
+    public String toString() {
+        System.out.println("Оперативная память: " + "\n" + "Тип: " + getType() + "\n" + "Объем: " +
+                    getSize() + "\n" + "Вес: " + getWeight());
+        System.out.println();
+        return "";
     }
 }
