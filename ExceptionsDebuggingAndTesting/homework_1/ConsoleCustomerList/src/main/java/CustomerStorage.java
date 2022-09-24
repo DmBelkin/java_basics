@@ -1,8 +1,14 @@
+import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Map;
 
 public class CustomerStorage {
     private final Map<String, Customer> storage;
+
+    private final String phoneRegex = "[+][7,8]{1}[0-9]{10}";
+
+    private final String emailRegex = "\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*\\.\\w{2,4}";
+
 
     public CustomerStorage() {
         storage = new HashMap<>();
@@ -15,6 +21,16 @@ public class CustomerStorage {
         final int INDEX_PHONE = 3;
 
         String[] components = data.split("\\s+");
+        if (components.length != 4) {
+            throw new IllegalArgumentException("java.lang.ArrayIndexOutOfBoundsException:" +
+                    " Index 3 out of bounds for length 3");
+        }
+        if (!components[INDEX_EMAIL].matches(emailRegex)) {
+            throw new IllegalArgumentException("Wrong email format");
+        }
+        if (!components[INDEX_PHONE].matches(phoneRegex)) {
+            throw new IllegalArgumentException("Wrong phone format");
+        }
         String name = components[INDEX_NAME] + " " + components[INDEX_SURNAME];
         storage.put(name, new Customer(name, components[INDEX_PHONE], components[INDEX_EMAIL]));
     }
