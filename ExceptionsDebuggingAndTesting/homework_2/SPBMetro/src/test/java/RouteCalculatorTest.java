@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 
 public class RouteCalculatorTest extends TestCase {
-    private final Line line3 = new Line(3, "Невско - Васиеоостровская");
+    private final Line line3 = new Line(3, "Невско - Василеостровская");
     private final Line line5 = new Line(2, "Московско - Петроградская");
     private final Line line4 = new Line(4, "Правобережная");
     private final Line line2 = new Line(2,"Московско - Петроградская");
