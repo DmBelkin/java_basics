@@ -1,9 +1,6 @@
 import core.Station;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class RouteCalculator {
     private final StationIndex stationIndex;
@@ -94,11 +91,12 @@ public class RouteCalculator {
                     if (route.isEmpty() || route.size() > way.size()) {
                         route.clear();
                         route.addAll(way);
+                        return route;
                     }
                 }
             }
         }
-        return route;
+        return null;
     }
 
     private boolean isConnected(Station station1, Station station2) {
@@ -137,9 +135,9 @@ public class RouteCalculator {
                     continue;
                 }
                 List<Station> way = new ArrayList<>();
-                way.addAll(getRouteOnTheLine(from, srcStation));
+                way.addAll((getRouteOnTheLine(from, srcStation)));
                 way.addAll(connectedLineRoute);
-                way.addAll(getRouteOnTheLine(dstStation, to));
+                way.addAll((getRouteOnTheLine(dstStation, to)));
                 if (route.isEmpty() || route.size() > way.size()) {
                     route.clear();
                     route.addAll(way);

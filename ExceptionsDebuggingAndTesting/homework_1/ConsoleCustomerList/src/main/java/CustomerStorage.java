@@ -1,8 +1,12 @@
-import java.io.StringReader;
+
+import org.apache.logging.log4j.LogManager;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class CustomerStorage {
+
+    private org.apache.logging.log4j.Logger logger = LogManager.getRootLogger();
     private final Map<String, Customer> storage;
 
     private final String phoneRegex = "[+][7,8]{1}[0-9]{10}";
@@ -22,13 +26,16 @@ public class CustomerStorage {
 
         String[] components = data.split("\\s+");
         if (components.length != 4) {
+            logger.info("Неверно введена команда или имя");
             throw new IllegalArgumentException("java.lang.ArrayIndexOutOfBoundsException:" +
                     " Index 3 out of bounds for length 3");
         }
         if (!components[INDEX_EMAIL].matches(emailRegex)) {
+            logger.info("Неверно введен email");
             throw new IllegalArgumentException("Wrong email format");
         }
         if (!components[INDEX_PHONE].matches(phoneRegex)) {
+            logger.info("Неверно введен телефон");
             throw new IllegalArgumentException("Wrong phone format");
         }
         String name = components[INDEX_NAME] + " " + components[INDEX_SURNAME];
