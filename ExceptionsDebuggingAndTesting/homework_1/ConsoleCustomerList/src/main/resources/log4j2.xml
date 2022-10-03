@@ -5,26 +5,24 @@
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
 
-        <File name="MyFile" fileName="logs/errors.log" immediateFlush="true">
+        <File name="SearchFile" fileName="logs/query.log">
             <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+            <Filters>
+                <MarkerFilter marker = "INPUT_HISTORY_MARKER" />
+            </Filters>
         </File>
-
-        <File name="MyFile" fileName="logs/queries.log" immediateFlush="true">
+        <File name="SearchFile" fileName="logs/errors.log">
             <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+            <Filters>
+                <MarkerFilter marker = "EXCEPTION" />
+            </Filters>
         </File>
     </appenders>
     <loggers>
 
-        <logger name="logs/errors.log" level="info">
-            <appender-ref ref="MyFile"/>
-        </logger>
-
-        <logger name="logs/queries.log" level="error">
-            <appender-ref ref="MyFile"/>
-        </logger>
-
         <root level="info">
-            <appender-ref ref="MyFile"/>
+            <appender-ref ref="SearchFile"/>
+            <appender-ref ref="SearchFile"/>
         </root>
 
     </loggers>

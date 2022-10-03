@@ -1,12 +1,17 @@
 
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class CustomerStorage {
 
-    private org.apache.logging.log4j.Logger logger = LogManager.getRootLogger();
+    private static final Logger logger = LogManager.getRootLogger();
+    private static final Marker INPUT_HISTORY_MARKER = MarkerManager.getMarker("INPUT_HISTORY");
+    private static final Marker EXCEPTION = MarkerManager.getMarker("EXCEPTION");
     private final Map<String, Customer> storage;
 
     private final String phoneRegex = "[+][7,8]{1}[0-9]{10}";
@@ -26,19 +31,20 @@ public class CustomerStorage {
 
         String[] components = data.split("\\s+");
         if (components.length != 4) {
-            logger.info("Неверно введена команда или имя");
+            logger.error(EXCEPTION, "Неверно введена команда или имя");
             throw new IllegalArgumentException("java.lang.ArrayIndexOutOfBoundsException:" +
                     " Index 3 out of bounds for length 3");
         }
         if (!components[INDEX_EMAIL].matches(emailRegex)) {
-            logger.info("Неверно введен email");
+            logger.error(EXCEPTION, "Неверно введен email");
             throw new IllegalArgumentException("Wrong email format");
         }
         if (!components[INDEX_PHONE].matches(phoneRegex)) {
-            logger.info("Неверно введен телефон");
+            logger.error(EXCEPTION, "Неверно введен телефон");
             throw new IllegalArgumentException("Wrong phone format");
         }
         String name = components[INDEX_NAME] + " " + components[INDEX_SURNAME];
+        logger.info(INPUT_HISTORY_MARKER, "Добавлен новый пользователь");
         storage.put(name, new Customer(name, components[INDEX_PHONE], components[INDEX_EMAIL]));
     }
 

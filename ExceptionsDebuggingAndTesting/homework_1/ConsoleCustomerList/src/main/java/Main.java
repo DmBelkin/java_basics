@@ -1,11 +1,15 @@
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 
 import java.util.Scanner;
 
 public class Main {
 
-    private static Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger(Main.class);
+    private static final Marker INPUT_HISTORY_MARKER = MarkerManager.getMarker("INPUT_HISTORY");
+    private static final Marker EXCEPTION = MarkerManager.getMarker("EXCEPTION");
     private static final String ADD_COMMAND = "add Василий Петров " +
             "vasily.petrov@gmail.com +79215637722";
     private static final String COMMAND_EXAMPLES = "\t" + ADD_COMMAND + "\n" +
@@ -32,9 +36,10 @@ public class Main {
                     System.out.println("There are " + executor.getCount() + " customers");
                 } else if (tokens[0].equals("help")) {
                     System.out.println(HELP_TEXT);
+                    logger.info(INPUT_HISTORY_MARKER, "Запрошена помощь");
                 } else {
                     System.out.println(COMMAND_ERROR);
-                    logger.error("Error");
+                    logger.error(EXCEPTION, "Error");
                 }
             } catch (Exception ex) {
                 System.err.println("Error");
