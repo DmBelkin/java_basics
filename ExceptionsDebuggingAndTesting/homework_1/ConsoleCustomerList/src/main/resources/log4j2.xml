@@ -1,29 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration status="WARN">
     <appenders>
+
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
 
-        <File name="SearchFile" fileName="logs/query.log">
+        <File name="InfoFile" fileName="logs/query.log">
             <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
             <Filters>
-                <MarkerFilter marker = "INPUT_HISTORY_MARKER" />
+                <MarkerFilter marker = "INPUT_HISTORY_MARKER" onMatch="ACCEPT" onMismatch="NEUTRAL" />
+                <ThresholdFilter level = "info" />
             </Filters>
         </File>
-        <File name="SearchFile" fileName="logs/errors.log">
+
+        <File name="ErrorFile" fileName="logs/errors.log">
             <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
             <Filters>
-                <MarkerFilter marker = "EXCEPTION" />
+                <MarkerFilter marker = "EXCEPTION" onMatch="ACCEPT"  onMismatch="NEUTRAL" />
+                <ThresholdFilter level = "error" />
             </Filters>
         </File>
+
     </appenders>
     <loggers>
-
         <root level="info">
-            <appender-ref ref="SearchFile"/>
-            <appender-ref ref="SearchFile"/>
+            <appender-ref ref="ErrorFile" level="error"/>
+            <appender-ref ref="InfoFile" level="info"/>
         </root>
-
     </loggers>
 </configuration>

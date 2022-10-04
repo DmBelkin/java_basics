@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class CustomerStorage {
 
-    private static final Logger logger = LogManager.getRootLogger();
+    private static final Logger logger = LogManager.getLogger(CustomerStorage.class);
     private static final Marker INPUT_HISTORY_MARKER = MarkerManager.getMarker("INPUT_HISTORY");
     private static final Marker EXCEPTION = MarkerManager.getMarker("EXCEPTION");
     private final Map<String, Customer> storage;
