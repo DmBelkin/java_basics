@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    private static final Logger logger = LogManager.getLogger(Main.class);
+    private static final Logger LOGGER = LogManager.getLogger(Main.class);
     private static final Marker INPUT_HISTORY_MARKER = MarkerManager.getMarker("INPUT_HISTORY");
     private static final Marker EXCEPTION = MarkerManager.getMarker("EXCEPTION");
     private static final String ADD_COMMAND = "add Василий Петров " +
@@ -36,14 +36,14 @@ public class Main {
                     System.out.println("There are " + executor.getCount() + " customers");
                 } else if (tokens[0].equals("help")) {
                     System.out.println(HELP_TEXT);
-                    logger.info(INPUT_HISTORY_MARKER, "Запрошена помощь");
+                    LOGGER.info(INPUT_HISTORY_MARKER, "Запрошена помощь");
                 } else {
                     System.out.println(COMMAND_ERROR);
-                    logger.error(EXCEPTION, "Error");
+                    LOGGER.error(EXCEPTION, "Error");
                 }
             } catch (Exception ex) {
                 System.err.println("Error");
-                logger.error(EXCEPTION, "Ошибка ввода");
+                LOGGER.error(EXCEPTION, "Ошибка ввода");
             }
         }
     }

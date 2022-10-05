@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class CustomerStorage {
 
-    private static final Logger logger = LogManager.getLogger(CustomerStorage.class);
+    private static final Logger LOGGER = LogManager.getLogger(CustomerStorage.class);
     private static final Marker INPUT_HISTORY_MARKER = MarkerManager.getMarker("INPUT_HISTORY");
     private static final Marker EXCEPTION = MarkerManager.getMarker("EXCEPTION");
     private final Map<String, Customer> storage;
@@ -31,20 +31,20 @@ public class CustomerStorage {
 
         String[] components = data.split("\\s+");
         if (components.length != 4) {
-            logger.error(EXCEPTION, "Неверно введена команда или имя");
+            LOGGER.error(EXCEPTION, "Неверно введена команда или имя");
             throw new IllegalArgumentException("java.lang.ArrayIndexOutOfBoundsException:" +
                     " Index 3 out of bounds for length 3");
         }
         if (!components[INDEX_EMAIL].matches(emailRegex)) {
-            logger.error(EXCEPTION, "Неверно введен email");
+            LOGGER.error(EXCEPTION, "Неверно введен email");
             throw new IllegalArgumentException("Wrong email format");
         }
         if (!components[INDEX_PHONE].matches(phoneRegex)) {
-            logger.error(EXCEPTION, "Неверно введен телефон");
+            LOGGER.error(EXCEPTION, "Неверно введен телефон");
             throw new IllegalArgumentException("Wrong phone format");
         }
         String name = components[INDEX_NAME] + " " + components[INDEX_SURNAME];
-        logger.info(INPUT_HISTORY_MARKER, "Добавлен новый пользователь");
+        LOGGER.info(INPUT_HISTORY_MARKER, "Добавлен новый пользователь");
         storage.put(name, new Customer(name, components[INDEX_PHONE], components[INDEX_EMAIL]));
     }
 
