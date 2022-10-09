@@ -2,11 +2,10 @@ import java.util.Scanner;
 
 public class Main {
 
-    private static Company company = new Company(12345768);
-
     private static String command;
 
     public static void main(String[] args) {
+        Company company = new Company();
         Scanner scanner = new Scanner(System.in);
         generator(company);
         System.out.println(company.employees.size());
@@ -16,34 +15,31 @@ public class Main {
                 break;
             } else {
                 command = input;
-                company.getIncome();
-                getCommand(command);
+                company.getIncome(120003452);
+                getCommand(command, company);
             }
         }
     }
 
-    public static String getCommand(String command) {
+    public static String getCommand(String command, Company company) {
         Scanner scanner = new Scanner(System.in);
         switch (command) {
             case "Hire Operator":
                 System.out.println("Введите ФИО, затем заработную плату");
                 Operator operator = new Operator(
-                        scanner.nextLine(), scanner.nextLine(), scanner.nextLine(), scanner.nextInt()
-                );
+                        scanner.nextLine(), scanner.nextLine(), scanner.nextLine(), scanner.nextInt(), company);
                 company.hire(operator);
                 break;
             case "Hire Manager":
                 System.out.println("Введите ФИО, затем заработную плату");
                 Manager manager = new Manager(
-                        scanner.nextLine(), scanner.nextLine(), scanner.nextLine(), scanner.nextInt()
-                );
+                        scanner.nextLine(), scanner.nextLine(), scanner.nextLine(), scanner.nextInt(), company);
                 company.hire(manager);
                 break;
             case "Hire Topmanager":
                 System.out.println("Введите ФИО, затем заработную плату");
                 TopManager topManager = new TopManager(
-                        scanner.nextLine(), scanner.nextLine(), scanner.nextLine(), scanner.nextInt()
-                );
+                        scanner.nextLine(), scanner.nextLine(), scanner.nextLine(), scanner.nextInt(), company);
                 company.hire(topManager);
                 break;
             case "Highest salaries":
@@ -60,17 +56,17 @@ public class Main {
                 if (jobTitle.equals("Operator")) {
                     System.out.println("Введите ФИО, затем З.П.");
                     Operator fireOperator = new Operator(scanner.nextLine(), scanner.nextLine(), scanner.nextLine(),
-                            scanner.nextInt());
+                            scanner.nextInt(), company);
                     company.fire(fireOperator);
                 } else if (jobTitle.equals("Manager")) {
                     System.out.println("Введите ФИО, затем З.П.");
                     Manager fireManager = new Manager(scanner.nextLine(), scanner.nextLine(), scanner.nextLine(),
-                            scanner.nextInt());
+                            scanner.nextInt(), company);
                     company.fire(fireManager);
                 } else if (jobTitle.equals("Topmanager")) {
                     System.out.println("Введите ФИО, затем З.П.");
                     TopManager fireTopManager = new TopManager(scanner.nextLine(), scanner.nextLine(),
-                            scanner.nextLine(), scanner.nextInt());
+                            scanner.nextLine(), scanner.nextInt(), company);
                     company.fire(fireTopManager);
                 }
                 break;
@@ -90,26 +86,27 @@ public class Main {
         String[] maleSurName = {"Иванов", "Васильев", "Александров", "Никандров", "Феоктистов", "Титов", "Столбов",
                 "Савельев"};
         String[] femaleName = {"Мария", "Марина", "Виктория", "Алина", "Валерия", "Наталья", "Яна", "Лидия", "Анна"};
-        String[] femalePatronymic = {"Ивановна", "Васильевна", "Александровна", "Валерьевна", "Вениаминовна", "Никитична"};
+        String[] femalePatronymic = {"Ивановна", "Васильевна", "Александровна", "Валерьевна", "Вениаминовна",
+                "Никитична"};
         String[] femaleSurname = {"Иванова", "Петрова", "Александрова", "Ильина", "Васильева", "Сергеева", "Ларина"};
         int operatorSalary = 130700;
         int managerSalary = 150000;
         int topManagerSalary = 180000;
-        company.getIncome();
+        company.getIncome(120003452);
 
         for (String name : maleName) {
             for (String patronymic : malePatronymic) {
                 for (String surName : maleSurName) {
                     if (company.employees.size() < 90) {
-                        Operator operator = new Operator(name, patronymic, surName, operatorSalary);
+                        Operator operator = new Operator(name, patronymic, surName, operatorSalary, company);
                         company.hire(operator);
                     }
                     if (company.employees.size() >= 90 && company.employees.size() < 130) {
-                        Manager manager = new Manager(name, patronymic, surName, managerSalary);
+                        Manager manager = new Manager(name, patronymic, surName, managerSalary, company);
                         company.hire(manager);
                     }
                     if (company.employees.size() >= 130 && company.employees.size() < 135) {
-                        TopManager topManager = new TopManager(name, patronymic, surName, topManagerSalary);
+                        TopManager topManager = new TopManager(name, patronymic, surName, topManagerSalary, company);
                         company.hire(topManager);
                     }
                     if (company.employees.size() == 135) {
@@ -122,15 +119,15 @@ public class Main {
             for (String patronymic : femalePatronymic) {
                 for (String surName : femaleSurname) {
                     if (company.employees.size() < 225) {
-                        Operator operator = new Operator(name, patronymic, surName, operatorSalary);
+                        Operator operator = new Operator(name, patronymic, surName, operatorSalary, company);
                         company.hire(operator);
                     }
                     if (company.employees.size() >= 225 && company.employees.size() <= 265) {
-                        Manager manager = new Manager(name, patronymic, surName, managerSalary);
+                        Manager manager = new Manager(name, patronymic, surName, managerSalary, company);
                         company.hire(manager);
                     }
                     if (company.employees.size() > 265 && company.employees.size() < 270) {
-                        TopManager topManager = new TopManager(name, patronymic, surName, topManagerSalary);
+                        TopManager topManager = new TopManager(name, patronymic, surName, topManagerSalary, company);
                         company.hire(topManager);
                     }
                     if (company.employees.size() == 270) {

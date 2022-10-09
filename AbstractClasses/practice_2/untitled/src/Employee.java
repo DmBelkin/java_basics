@@ -10,5 +10,7 @@ public interface Employee {
     String getPatronymic();
 
     String getSurname();
+
+    Company getCompany();
 }
 

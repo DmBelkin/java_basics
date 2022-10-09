@@ -5,11 +5,14 @@ public class TopManager implements Employee {
     private final String surName;
     private int monthSalary;
 
-    public TopManager (String name, String patronymic, String surName, int monthSalary) {
+    private Company company;
+
+    public TopManager (String name, String patronymic, String surName, int monthSalary, Company company) {
         this.name = name;
         this.patronymic = patronymic;
         this.surName = surName;
         this.monthSalary = monthSalary;
+        this.company = company;
     }
 
     @Override
@@ -29,10 +32,14 @@ public class TopManager implements Employee {
 
     @Override
     public int getMonthSalary() {
-        if (Company.income > 10000000) {
+        if (company.income > 10000000) {
             return monthSalary + (int)(monthSalary * 1.5);
         }
         return monthSalary;
+    }
+    @Override
+    public Company getCompany() {
+        return company;
     }
 
     @Override

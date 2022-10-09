@@ -6,11 +6,14 @@ import java.util.List;
 public class Company {
 
     protected ArrayList<Employee> employees = new ArrayList<>();
-    protected static int count;
-    protected static double income;
+    protected  int count;
+    protected double income;
 
     public Company(double income) {
         this.income = income;
+    }
+    public Company () {
+
     }
 
 
@@ -26,7 +29,7 @@ public class Company {
                 break;
             }
         }
-        return employees.subList(0, count);
+        return new ArrayList<>(employees.subList(0, count));
     }
 
     public List<Employee> getLowestSalaryStaff(int count) {
@@ -40,7 +43,7 @@ public class Company {
                 break;
             }
         }
-        return employees.subList(employees.size() - count, employees.size());
+        return new ArrayList<>(employees.subList(employees.size() - count, employees.size()));
 
     }
 
@@ -67,6 +70,10 @@ public class Company {
             public String getSurname() {
                 return getSurname();
             }
+            @Override
+            public Company getCompany() {
+                return getCompany();
+            }
         };
     }
 
@@ -92,7 +99,10 @@ public class Company {
            public String getPatronymic() {
                return null;
            }
-
+           @Override
+           public Company getCompany() {
+               return getCompany();
+           }
            @Override
            public String getSurname() {
                return null;
@@ -100,7 +110,8 @@ public class Company {
        };
     }
 
-    public double getIncome() {
+    public double getIncome(int income)
+    {
         return income;
     }
 
