@@ -1,34 +1,43 @@
 
+import netscape.javascript.JSObject;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.io.FilenameFilter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Main {
 
     private static final Metro metro = new Metro();
+
     private static final String LINE_REGEX = "[А-Я-]{3}+[0-9]{1}$";
-    private static final String file = "Data/data";
+    private static final String file = "data/data";
+
     private static String path = "";
     private static final ArrayList<File> collectFiles = new ArrayList<>();
+    private static StringBuilder jsonBuilder;
+    private static StringBuilder depthBuilder;
 
     public static void main(String[] args) {
         try {
             Document document = Jsoup.connect("https://skillbox-java.github.io/").get();
-            Elements elements = document.select("h2");
-            //parseLine(elements);
-            //parseStations(elements);
+            Elements elements = document.select("#metrodata");
+//            parseLine(elements);
+//            parseStations(elements);
             fileReader();
-            fileParser(collectFiles);
+            dateParser();
+            depthParser();
+            jsonParser();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -38,6 +47,7 @@ public class Main {
         String[] data = elements.text().split("\\d+");
         int lineNumber = 1;
         for (String result : data) {
+            System.out.println(result);
             if (result.toLowerCase().contains("линия")) {
                 String[] ary = result.replaceAll("\\.", "").
                         trim().split("\\s+");
@@ -98,19 +108,66 @@ public class Main {
                 }
             }
         }
-        System.out.println(collectFiles);
         return collectFiles;
     }
 
-    private static void fileParser(ArrayList<File> collectFiles) {
+    private static String dateParser() {
+        jsonBuilder = new StringBuilder();
         for (File file1 : collectFiles) {
             try {
-                List<String> lines = Files.readAllLines(Paths.get(file1.getPath()));
-                System.out.println(lines);
+                if (file1.getName().equals("dates-2.json")) {
+                        List<String> lines = Files.readAllLines(Paths.get(file1.getPath()));
+                        lines.forEach(line -> jsonBuilder.append(line));
+                        lines.forEach(System.out::println);
+                    }
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
+            break;
         }
+        return jsonBuilder.toString();
+    }
+
+    private static String depthParser() {
+        depthBuilder = new StringBuilder();
+        for (File file1 : collectFiles) {
+            try {
+                if (file1.getName().equals("depths-1.json")) {
+                    List<String> lines = Files.readAllLines(Paths.get(file1.getPath()));
+                    lines.forEach(line -> depthBuilder.append(line));
+                    lines.forEach(System.out::println);
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            break;
+        }
+        return depthBuilder.toString();
+    }
+
+    private static void jsonParser() {
+        try {
+            JSONParser parser = new JSONParser();
+            JSONObject jsonData = (JSONObject) parser.parse(dateParser());
+            JSONArray stationArray = (JSONArray) jsonData.get("name");
+            getDate(stationArray);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private static  void getDate(JSONArray stationArray) {
+        stationArray.forEach(o -> { JSONObject object = (JSONObject) o;
+                 String[] dates = object.get("date").toString().split("\\.");
+                 LocalDate date = LocalDate.of(Integer.parseInt(dates[0]), Integer.parseInt(dates[1]),
+                         Integer.parseInt(dates[2]));
+        metro.getLines().stream().forEach(line -> line.getStations().stream().forEach(station -> station.setDate(
+        date)));}
+        );
+    }
+
+    private static  void  getDepth() {
+
     }
 }
 

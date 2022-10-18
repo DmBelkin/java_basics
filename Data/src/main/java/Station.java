@@ -43,8 +43,8 @@ public class Station {
         return line;
     }
 
-    public void setDate(int year, int month, int day, LocalDate date) {
-        date = LocalDate.of(year, month, day);
+    public void setDate(LocalDate date) {
+
     }
 
     public LocalDate getDate() {
