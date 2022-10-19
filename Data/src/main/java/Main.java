@@ -1,5 +1,4 @@
 
-import netscape.javascript.JSObject;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -7,14 +6,13 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
+import javax.sound.midi.Soundbank;
 import java.io.File;
-import java.io.FileFilter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -24,6 +22,9 @@ public class Main {
     private static final String file = "data/data";
 
     private static String path = "";
+
+    private static final TreeMap<String, String> depthCollect = new TreeMap<>();
+    private static final TreeMap<String, String> dateCollect = new TreeMap<>();
     private static final ArrayList<File> collectFiles = new ArrayList<>();
     private static StringBuilder jsonBuilder;
     private static StringBuilder depthBuilder;
@@ -32,12 +33,7 @@ public class Main {
         try {
             Document document = Jsoup.connect("https://skillbox-java.github.io/").get();
             Elements elements = document.select("#metrodata");
-//            parseLine(elements);
-//            parseStations(elements);
-            fileReader();
-            dateParser();
-            depthParser();
-            jsonParser();
+            parseLine(elements);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -47,7 +43,6 @@ public class Main {
         String[] data = elements.text().split("\\d+");
         int lineNumber = 1;
         for (String result : data) {
-            System.out.println(result);
             if (result.toLowerCase().contains("линия")) {
                 String[] ary = result.replaceAll("\\.", "").
                         trim().split("\\s+");
@@ -59,6 +54,8 @@ public class Main {
                  */
             }
         }
+        fileReader();
+        parseStations(elements);
     }
 
     private static void parseStations(Elements elements) {
@@ -66,12 +63,30 @@ public class Main {
         int stationNumber = 1;
         int check = 1;
         String stationName = "";
+        double depth = 0;
+        String date = "";
         for (Line line : metro.getLines()) {
             for (int i = check; i <= data.length - 1; i++) {
                 if (!data[i].toLowerCase().contains("линия")) {
                     stationName = data[i].trim().replaceAll("\\.", "");
-                    line.addStations(new Station(stationNumber, 0, stationName, line,
-                            LocalDate.of(1, 1, 1)));
+                    for (Map.Entry<String,String> entry : dateCollect.entrySet()) {
+                        if (entry.getKey().equals(stationName.trim())){
+                            date = entry.getValue();
+                        }
+                    }
+                    for (Map.Entry<String,String> entry : depthCollect.entrySet()) {
+                        if (entry.getKey().equals(stationName.trim())){
+                            if (entry.getValue().charAt(0) == '-') {
+                                System.out.println(entry.getValue());
+                                depth = Double.parseDouble(entry.getValue().substring(1)) -
+                                        2 * (Double.parseDouble(entry.getValue().substring(1)));
+                            } else {
+                                System.out.println(entry.getValue());
+                                depth = Double.parseDouble(entry.getValue());
+                            }
+                        }
+                    }
+                    line.addStations(new Station(stationNumber, depth, stationName, line, date));
                     stationNumber++;
                     check++;
                 }
@@ -82,8 +97,25 @@ public class Main {
                     } else if (ary.length > 3) {
                         stationName = (ary[0] + " " + ary[1]).trim().replaceAll("\\.", "");
                     }
-                    line.addStations(new Station(stationNumber, 0, stationName, line,
-                            LocalDate.of(1, 1, 1)));
+                    for (Map.Entry<String,String> entry : dateCollect.entrySet()) {
+                        if (entry.getKey().equals(stationName.trim())){
+                            date = entry.getValue();
+                        }
+                    }
+                    for (Map.Entry<String,String> entry : depthCollect.entrySet()) {
+                        if (entry.getKey().equals(stationName.trim())){
+                            if (entry.getValue().charAt(0) == '-') {
+                                System.out.println(entry.getValue());
+                                depth = Double.parseDouble((entry.getValue().substring(1))) -
+                                        2 * (Double.parseDouble(entry.getValue().substring(1)));
+                            } else {
+                                System.out.println(entry.getValue());
+                                depth = Double.parseDouble(entry.getValue());
+                            }
+                        }
+                    }
+                    metro.setStations(new Station(stationNumber, depth, stationName, line, date));
+                    line.addStations(new Station(stationNumber, depth, stationName, line, date));
                     stationNumber = 1;
                     check++;
                     break;
@@ -96,8 +128,14 @@ public class Main {
     private static ArrayList<File> fileReader() {
         File dataFile = new File(file);
         for (File f : dataFile.listFiles()) {
+            if (f.isFile()) {
+                collectFiles.add(f);
+            }
             if (f.isDirectory()) {
                 for (File f1 : f.listFiles()) {
+                    if (f1.isFile()) {
+                        collectFiles.add(f1);
+                    }
                     if (f1.isDirectory()) {
                         for (File file1 : f1.listFiles()) {
                             if (file1.isFile()) {
@@ -108,6 +146,7 @@ public class Main {
                 }
             }
         }
+        jsonParser();
         return collectFiles;
     }
 
@@ -118,29 +157,26 @@ public class Main {
                 if (file1.getName().equals("dates-2.json")) {
                         List<String> lines = Files.readAllLines(Paths.get(file1.getPath()));
                         lines.forEach(line -> jsonBuilder.append(line));
-                        lines.forEach(System.out::println);
                     }
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
-            break;
         }
         return jsonBuilder.toString();
     }
 
     private static String depthParser() {
         depthBuilder = new StringBuilder();
+        System.out.println(collectFiles.size());
         for (File file1 : collectFiles) {
             try {
                 if (file1.getName().equals("depths-1.json")) {
                     List<String> lines = Files.readAllLines(Paths.get(file1.getPath()));
                     lines.forEach(line -> depthBuilder.append(line));
-                    lines.forEach(System.out::println);
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
-            break;
         }
         return depthBuilder.toString();
     }
@@ -148,25 +184,29 @@ public class Main {
     private static void jsonParser() {
         try {
             JSONParser parser = new JSONParser();
-            JSONObject jsonData = (JSONObject) parser.parse(dateParser());
-            JSONArray stationArray = (JSONArray) jsonData.get("name");
-            getDate(stationArray);
+            JSONArray dateArray = (JSONArray)parser.parse(dateParser());
+            JSONArray depthArray = (JSONArray)parser.parse(depthParser());
+            getDate(dateArray);
+            getDepth(depthArray);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    private static  void getDate(JSONArray stationArray) {
-        stationArray.forEach(o -> { JSONObject object = (JSONObject) o;
-                 String[] dates = object.get("date").toString().split("\\.");
-                 LocalDate date = LocalDate.of(Integer.parseInt(dates[0]), Integer.parseInt(dates[1]),
-                         Integer.parseInt(dates[2]));
-        metro.getLines().stream().forEach(line -> line.getStations().stream().forEach(station -> station.setDate(
-        date)));}
-        );
+    private static void getDate(JSONArray dateArray) {
+        dateArray.forEach(o -> { JSONObject object = (JSONObject) o;
+            String date = object.get("date").toString();
+            String name = object.get("name").toString();
+            dateCollect.put(name, date);
+        });
     }
 
-    private static  void  getDepth() {
+    private static  void  getDepth(JSONArray depthArray) {
+        depthArray.forEach(o -> { JSONObject object = (JSONObject) o;
+            String depth = object.get("depth").toString();
+            String name = object.get("name").toString();
+            depthCollect.put(name, depth);
+        });
 
     }
 }

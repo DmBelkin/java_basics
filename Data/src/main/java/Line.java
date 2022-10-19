@@ -23,15 +23,11 @@ public class Line {
         return new ArrayList<>(stations);
     }
 
-    public void setNumber(int number) {
-    }
 
     public int getNumber() {
         return number;
     }
 
-    public void setName(String name) {
-    }
 
     public String getName() {
         return name;

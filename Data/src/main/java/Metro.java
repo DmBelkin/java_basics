@@ -18,11 +18,15 @@ public class Metro {
 
     public void setStations(Station station) {
         stations.add(station);
+        if (stations.isEmpty()) {
+            System.err.println("Станций нет");
+        }
     }
 
     public ArrayList<Station> getStations() {
         return new ArrayList<>(stations);
     }
+
 
     @Override
     public String toString() {
