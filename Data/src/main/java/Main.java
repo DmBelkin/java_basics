@@ -75,6 +75,7 @@ public class Main {
                 String date = "";
                 String[] nameAry = element.text().split("\\.");
                 String stationName = nameAry[1].trim();
+                System.out.println(stationName);
                 boolean hasConnection = false;
                 if (element.toString().contains("переход")) {
                     hasConnection = true;
@@ -82,6 +83,7 @@ public class Main {
                 for (Map.Entry<String, String> entry : dateCollect.entrySet()) {
                     if (entry.getKey().equals(stationName)) {
                         date = entry.getValue();
+                        System.out.println(stationName + "----" + entry.getKey());
                     }
                 }
                 for (Map.Entry<String, String> entry : depthCollect.entrySet()) {
@@ -98,8 +100,6 @@ public class Main {
                 check++;
             }
         }
-        System.out.println(depthCollect.size());
-        System.out.println(dateCollect.size());
         System.out.println(metro);
     }
 
@@ -129,45 +129,93 @@ public class Main {
         return collectFiles;
     }
 
-    private static String dateParser() {
-        StringBuilder jsonBuilder = new StringBuilder();
+    private static String jsonDateParser() {
+        StringBuilder jsonDateBuilder = new StringBuilder();
         for (File file1 : collectFiles) {
             try {
-                if (file1.getName().equals("dates-2.json")) {
+                if (file1.getName().contains("dates") && file1.getName().contains(".json")) {
                     List<String> lines = Files.readAllLines(Paths.get(file1.getPath()));
-                    lines.forEach(line -> jsonBuilder.append(line));
+                    lines.forEach(line -> jsonDateBuilder.append(line));
                 }
+
             } catch (Exception ex) {
                 ex.printStackTrace();
-            }
+             }
         }
-        return jsonBuilder.toString();
+        return jsonDateBuilder.toString();
     }
 
-    private static String depthParser() {
-        StringBuilder depthBuilder = new StringBuilder();
+    private static String jsonDepthParser() {
+        StringBuilder jsonDepthBuilder = new StringBuilder();
         for (File file1 : collectFiles) {
             try {
                 if (file1.getName().equals("depths-1.json")) {
                     List<String> lines = Files.readAllLines(Paths.get(file1.getPath()));
-                    lines.forEach(line -> depthBuilder.append(line));
+                    lines.forEach(line -> jsonDepthBuilder.append(line));
+                }
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        return jsonDepthBuilder.toString();
+    }
+
+    private static ArrayList<String> cswDateParser() {
+        ArrayList<String> collect = new ArrayList<>();
+        for (File file1 : collectFiles) {
+            try {
+                if (file1.getName().contains("dates")&& file1.getName().contains(".csv")) {
+                    List<String> lines = Files.readAllLines(Paths.get(file1.getPath()));
+                    lines.forEach(line -> collect.add(line));
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
-        return depthBuilder.toString();
+        return collect;
+    }
+
+    private static ArrayList<String> cswDepthParser() {
+        ArrayList<String> collect = new ArrayList<>();
+        for (File file1 : collectFiles) {
+            try {
+                if (file1.getName().contains("depths") && file1.getName().contains(".csv")) {
+                    List<String> lines = Files.readAllLines(Paths.get(file1.getPath()));
+                    lines.forEach(line -> collect.add(line));
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        return collect;
     }
 
     private static void jsonParser() {
         try {
             JSONParser parser = new JSONParser();
-            JSONArray dateArray = (JSONArray) parser.parse(dateParser());
-            JSONArray depthArray = (JSONArray) parser.parse(depthParser());
+            JSONArray dateArray = (JSONArray) parser.parse(jsonDateParser());
+            JSONArray depthArray = (JSONArray) parser.parse(jsonDepthParser());
             getDate(dateArray);
             getDepth(depthArray);
         } catch (Exception ex) {
             ex.printStackTrace();
+        }
+        cswGetDate(cswDateParser());
+        cswGetDepth(cswDepthParser());
+    }
+
+    private static void cswGetDate(ArrayList<String> collect) {
+        for (int i = 0; i <= collect.size() - 1; i++) {
+            String[] array = collect.get(i).split(",");
+            dateCollect.put(array[0].trim(), array[1].trim());
+        }
+    }
+
+    private static void cswGetDepth(ArrayList<String> collect) {
+        for (int i = 0; i <= collect.size() - 1; i++) {
+            String[] array = collect.get(i).split(",");
+            depthCollect.put(array[0].trim(), array[1].trim());
         }
     }
 
