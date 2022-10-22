@@ -27,7 +27,6 @@ public class Metro {
         return new ArrayList<>(stations);
     }
 
-
     @Override
     public String toString() {
         String toString =  "Линии" + "\n" + getLines() + "\n";

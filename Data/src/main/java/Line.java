@@ -3,11 +3,11 @@ import java.util.List;
 
 public class Line {
 
-    private final int number;
+    private final String number;
     private final String name;
     private final List<Station> stations = new ArrayList<>();
 
-    public Line(int number, String name) {
+    public Line(String number, String name) {
         this.number = number;
         this.name = name;
     }
@@ -24,7 +24,7 @@ public class Line {
     }
 
 
-    public int getNumber() {
+    public String getNumber() {
         return number;
     }
 
