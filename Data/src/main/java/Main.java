@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 public class Main {
 
     private static final Metro metro = new Metro();
-
     private static final String file = "data/data";
 
     private static String path = "";
@@ -75,7 +74,6 @@ public class Main {
                 String date = "";
                 String[] nameAry = element.text().split("\\.");
                 String stationName = nameAry[1].trim();
-                System.out.println(stationName);
                 boolean hasConnection = false;
                 if (element.toString().contains("переход")) {
                     hasConnection = true;
@@ -83,7 +81,6 @@ public class Main {
                 for (Map.Entry<String, String> entry : dateCollect.entrySet()) {
                     if (entry.getKey().equals(stationName)) {
                         date = entry.getValue();
-                        System.out.println(stationName + "----" + entry.getKey());
                     }
                 }
                 for (Map.Entry<String, String> entry : depthCollect.entrySet()) {
@@ -93,6 +90,7 @@ public class Main {
                     }
                 }
                 line.addStations(new Station(stationNumber, depth, stationName, line, date, hasConnection));
+                metro.setStations(new Station(stationNumber, depth, stationName, line, date, hasConnection));
                 if (check == stations.size() - 1) {
                     i++;
                     break;
@@ -101,6 +99,7 @@ public class Main {
             }
         }
         System.out.println(metro);
+        System.out.println(metro.getStations().size());
     }
 
 
