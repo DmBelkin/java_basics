@@ -8,8 +8,9 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import javax.sound.midi.Soundbank;
+import javax.swing.*;
 import java.awt.image.AreaAveragingScaleFilter;
-import java.io.File;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
@@ -39,6 +40,8 @@ public class Main {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        getMetroJson(metro);
+        getStationsJson(metro);
     }
 
     private static void parseLine(Elements lines) {
@@ -60,9 +63,9 @@ public class Main {
 
     private static void parseStations(Elements stations) {
         int check = 0;
-        for (int i = 0; i <= metro.getLines().size() - 1;) {
+        for (int i = 0; i <= metro.getLines().size() - 1; ) {
             Line line = metro.getLines().get(i);
-            for (int j = check; j <= stations.size() - 1; j ++) {
+            for (int j = check; j <= stations.size() - 1; j++) {
                 Element element = stations.get(j);
                 int stationNumber = Integer.parseInt("" + element.text().substring(0,
                         element.text().indexOf('.')));
@@ -139,7 +142,7 @@ public class Main {
 
             } catch (Exception ex) {
                 ex.printStackTrace();
-             }
+            }
         }
         return jsonDateBuilder.toString();
     }
@@ -164,7 +167,7 @@ public class Main {
         ArrayList<String> collect = new ArrayList<>();
         for (File file1 : collectFiles) {
             try {
-                if (file1.getName().contains("dates")&& file1.getName().contains(".csv")) {
+                if (file1.getName().contains("dates") && file1.getName().contains(".csv")) {
                     List<String> lines = Files.readAllLines(Paths.get(file1.getPath()));
                     lines.forEach(line -> collect.add(line));
                 }
@@ -234,6 +237,69 @@ public class Main {
             String name = object.get("name").toString();
             depthCollect.put(name, depth);
         });
+    }
+
+    private static void getMetroJson(Metro metro) {
+        JSONObject fullObject = new JSONObject();
+        for (int i = 0; i <= metro.getLines().size() - 1; i++) {
+            Line line = metro.getLines().get(i);
+            JSONArray lineArray = new JSONArray();
+            lineArray.add(0, "name: " + line.getName());
+            lineArray.add(1, "number: " + line.getNumber());
+            JSONArray stationsArray = new JSONArray();
+            for (int j = 0; j <=line.getStations().size() - 1; j++) {
+                Station station = line.getStations().get(j);
+                JSONObject stationObject = new JSONObject();
+                stationObject.put("name: " , station.getName());
+                if (!station.getDate().equals("")) {
+                    stationObject.put("date: ", station.getDate());
+                }
+                if (!station.getDepth().equals("")) {
+                    stationObject.put("depth: ", station.getDepth());
+                }
+                stationObject.put("hasConnection: " , station.getHasConnetion());
+                stationObject.put("number: " , station.getNumber());
+                stationObject.put("line: ", station.getLine().getName());
+                stationsArray.add(j, stationObject);
+            }
+            fullObject.put(lineArray, stationsArray);
+        }
+        JSONObject object = new JSONObject(fullObject);
+        try {
+            PrintWriter writer = new PrintWriter("data/metro.json");
+            object.writeJSONString(writer);
+            writer.flush();
+            writer.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private static void getStationsJson (Metro metro) {
+        JSONArray array = new JSONArray();
+        for (int i = 0; i <= metro.getStations().size() - 1; i++) {
+            Station station = metro.getStations().get(i);
+           JSONObject stationObject = new JSONObject();
+           stationObject.put("name: ", station.getName());
+           stationObject.put("line: ", station.getLine().getName());
+            if (!station.getDate().equals("")) {
+                stationObject.put("date: ", station.getDate());
+            }
+            if (!station.getDepth().equals("")) {
+                stationObject.put("depth: ", station.getDepth());
+            }
+           stationObject.put("hasConnection", station.getHasConnetion());
+           stationObject.put("number: ", station.getNumber());
+           array.add(i, stationObject);
+        }
+        try {
+            PrintWriter writer = new PrintWriter("data/stations.json");
+            array.writeJSONString(writer);
+            writer.flush();
+            writer.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 }
 

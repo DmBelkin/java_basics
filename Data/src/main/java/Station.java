@@ -1,6 +1,6 @@
 
 
-public class Station {
+public class Station implements Comparable<Station> {
 
     private final int number;
     private final String depth;
@@ -57,5 +57,10 @@ public class Station {
                 "Порядковый номер: " + number + "\n" +
                 "Есть пересадка? " + hasConnection + "\n\n";
         return toString;
+    }
+
+    @Override
+    public int compareTo(Station o) {
+        return 0;
     }
 }

@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Line {
+public class Line implements Comparable<Line> {
 
     private final String number;
     private final String name;
@@ -41,4 +41,22 @@ public class Line {
         return toString;
 
     }
+
+    @Override
+    public int compareTo(Line line) {
+//       if (!Character.isLetter(number.charAt(number.length() - 1))) {
+//           number.replace(Character.toString(number.charAt(number.length() - 1)), "");
+//       }
+//        if (!Character.isLetter(line.getNumber().charAt(line.getNumber().length() - 1))) {
+//            line.getNumber().replace(Character.toString(line.getNumber().
+//                    charAt(line.getNumber().length() - 1)), "");
+//        }
+//        return Integer.compare(Integer.parseInt(number), Integer.parseInt(line.getName()));
+        return 0;
+    }
+
+//    @Override
+//    public boolean equals (Object obj) {
+//        return compareTo((Line) obj) == 0;
+//    }
 }
