@@ -25,8 +25,8 @@ public class Main {
     private static final String file = "data/data";
 
     private static String path = "";
-    private static final TreeMap<String, String> depthCollect = new TreeMap<>();
-    private static final TreeMap<String, String> dateCollect = new TreeMap<>();
+    private static final ArrayList<String[]> depthCollect = new ArrayList<>();
+    private static final ArrayList<String[]> dateCollect = new ArrayList<>();
     private static final ArrayList<File> collectFiles = new ArrayList<>();
 
 
@@ -63,6 +63,8 @@ public class Main {
 
     private static void parseStations(Elements stations) {
         int check = 0;
+        int datecheck = 0;
+        int depthcheck = 0;
         for (int i = 0; i <= metro.getLines().size() - 1; ) {
             Line line = metro.getLines().get(i);
             for (int j = check; j <= stations.size() - 1; j++) {
@@ -81,15 +83,17 @@ public class Main {
                 if (element.toString().contains("переход")) {
                     hasConnection = true;
                 }
-                for (Map.Entry<String, String> entry : dateCollect.entrySet()) {
-                    if (entry.getKey().equals(stationName)) {
-                        date = entry.getValue();
+                for (String[] arr : dateCollect) {
+                    if (arr[0].equals(stationName)) {
+                        date = arr[1];
+                        datecheck++;
                     }
                 }
-                for (Map.Entry<String, String> entry : depthCollect.entrySet()) {
-                    if (entry.getKey().equals(stationName)) {
-                        depth = Character.isDigit(entry.getValue().charAt(0)) ? entry.getValue()
-                                : entry.getValue().replace("" + entry.getValue().charAt(0), "-");
+                for (String[] arr : depthCollect) {
+                    if (arr[0].equals(stationName)) {
+                        depthcheck++;
+                        depth = Character.isDigit(arr[1].charAt(0)) ? arr[1]
+                                : arr[1].replace("" + arr[1].charAt(0), "-");
                     }
                 }
                 line.addStations(new Station(stationNumber, depth, stationName, line, date, hasConnection));
@@ -101,7 +105,14 @@ public class Main {
                 check++;
             }
         }
+        /**
+         * понять, сказалась ли Treemap на количестве дат и глубин?
+         */
         System.out.println(metro);
+        System.out.println(depthCollect.size());
+        System.out.println(dateCollect.size());
+        System.out.println(datecheck);
+        System.out.println(depthcheck);
         System.out.println(metro.getStations().size());
     }
 
@@ -210,14 +221,14 @@ public class Main {
     private static void cswGetDate(ArrayList<String> collect) {
         for (int i = 0; i <= collect.size() - 1; i++) {
             String[] array = collect.get(i).split(",");
-            dateCollect.put(array[0].trim(), array[1].trim());
+            dateCollect.add(new String[]{array[0].trim(), array[1].trim()});
         }
     }
 
     private static void cswGetDepth(ArrayList<String> collect) {
         for (int i = 0; i <= collect.size() - 1; i++) {
             String[] array = collect.get(i).split(",");
-            depthCollect.put(array[0].trim(), array[1].trim());
+            depthCollect.add(new String[]{array[0].trim(), array[1].trim()});
         }
     }
 
@@ -226,7 +237,7 @@ public class Main {
             JSONObject object = (JSONObject) o;
             String date = object.get("date").toString();
             String name = object.get("name").toString();
-            dateCollect.put(name, date);
+            dateCollect.add(new String[]{name, date});
         });
     }
 
@@ -235,7 +246,7 @@ public class Main {
             JSONObject object = (JSONObject) o;
             String depth = object.get("depth").toString();
             String name = object.get("name").toString();
-            depthCollect.put(name, depth);
+            depthCollect.add(new String[]{name, depth});
         });
     }
 
