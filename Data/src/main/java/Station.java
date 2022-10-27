@@ -1,16 +1,16 @@
-
+import java.time.LocalDate;
 
 public class Station implements Comparable<Station> {
 
     private final int number;
-    private final String depth;
+    private final double depth;
     private final String name;
     private final Line line;
-    private final String date;
+    private final LocalDate date;
 
     private final boolean hasConnection;
 
-    public Station (int number, String depth, String name, Line line, String date, boolean hasConnection) {
+    public Station (int number, double depth, String name, Line line, LocalDate date, boolean hasConnection) {
         this.number = number;
         this.depth = depth;
         this.name = name;
@@ -29,7 +29,7 @@ public class Station implements Comparable<Station> {
     }
 
 
-    public String getDepth() {
+    public double getDepth() {
         return depth;
     }
 
@@ -40,7 +40,7 @@ public class Station implements Comparable<Station> {
 
 
 
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 

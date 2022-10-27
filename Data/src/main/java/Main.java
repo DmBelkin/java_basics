@@ -9,11 +9,14 @@ import org.jsoup.select.Elements;
 
 import javax.sound.midi.Soundbank;
 import javax.swing.*;
+import javax.swing.text.DateFormatter;
 import java.awt.image.AreaAveragingScaleFilter;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -63,8 +66,6 @@ public class Main {
 
     private static void parseStations(Elements stations) {
         int check = 0;
-        int datecheck = 0;
-        int depthcheck = 0;
         for (int i = 0; i <= metro.getLines().size() - 1; ) {
             Line line = metro.getLines().get(i);
             for (int j = check; j <= stations.size() - 1; j++) {
@@ -75,8 +76,8 @@ public class Main {
                     i++;
                     break;
                 }
-                String depth = "";
-                String date = "";
+                double depth;
+                LocalDate date = LocalDate.of(1,1,1);
                 String[] nameAry = element.text().split("\\.");
                 String stationName = nameAry[1].trim();
                 boolean hasConnection = false;
@@ -84,36 +85,59 @@ public class Main {
                     hasConnection = true;
                 }
                 for (String[] arr : dateCollect) {
-                    if (arr[0].equals(stationName)) {
-                        date = arr[1];
-                        datecheck++;
+                    if (arr[0].equals(stationName) && !arr[1].isEmpty()) {
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+                        try {
+                            date = LocalDate.parse(arr[1].toLowerCase().
+                                    trim().replaceAll("\\.", "."), formatter);
+                            System.out.println(date);
+                        } catch (DateTimeParseException ex) {
+                            ex.printStackTrace();
+                        }
                     }
                 }
-                for (String[] arr : depthCollect) {
-                    if (arr[0].equals(stationName)) {
-                        depthcheck++;
-                        depth = Character.isDigit(arr[1].charAt(0)) ? arr[1]
-                                : arr[1].replace("" + arr[1].charAt(0), "-");
-                    }
-                }
+                depth = depthParser(stationName);
                 line.addStations(new Station(stationNumber, depth, stationName, line, date, hasConnection));
                 metro.setStations(new Station(stationNumber, depth, stationName, line, date, hasConnection));
                 if (check == stations.size() - 1) {
                     i++;
                     break;
                 }
-                check++;
             }
         }
-        /**
-         * понять, сказалась ли Treemap на количестве дат и глубин?
-         */
         System.out.println(metro);
         System.out.println(depthCollect.size());
         System.out.println(dateCollect.size());
-        System.out.println(datecheck);
-        System.out.println(depthcheck);
         System.out.println(metro.getStations().size());
+    }
+
+    private static Double depthParser(String stationName) {
+        double depth = 0;
+        for (String[] arr : depthCollect) {
+            if (arr[0].equals(stationName)) {
+                String depthS = arr[1];
+                String forParse = "";
+                for (int f = 0; f <= depthS.length() - 1; f++) {
+                    if (Character.isDigit(depthS.charAt(f))) {
+                        forParse = forParse + depthS.charAt(f);
+                    } else if (Character.toString(depthS.charAt(f)).equals(",")) {
+                        forParse = forParse + ".";
+                    }
+                }
+                if (!forParse.isEmpty() && !forParse.equals("0")) {
+                    try {
+                        if (!Character.isDigit(depthS.trim().replaceAll("\"", "").charAt(0))) {
+                            forParse = "-" + forParse;
+                        }
+                        depth = Double.parseDouble(forParse);
+                    } catch (Exception ex) {
+                        System.err.println(depthS);
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        }
+        return depth;
     }
 
 
@@ -139,6 +163,7 @@ public class Main {
             }
         }
         jsonParser();
+        System.out.println(collectFiles);
         return collectFiles;
     }
 
@@ -147,10 +172,10 @@ public class Main {
         for (File file1 : collectFiles) {
             try {
                 if (file1.getName().contains("dates") && file1.getName().contains(".json")) {
+                    System.out.println(file1.getName());
                     List<String> lines = Files.readAllLines(Paths.get(file1.getPath()));
                     lines.forEach(line -> jsonDateBuilder.append(line));
                 }
-
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -163,10 +188,10 @@ public class Main {
         for (File file1 : collectFiles) {
             try {
                 if (file1.getName().equals("depths-1.json")) {
+                    System.out.println(file1.getName());
                     List<String> lines = Files.readAllLines(Paths.get(file1.getPath()));
                     lines.forEach(line -> jsonDepthBuilder.append(line));
                 }
-
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -179,6 +204,7 @@ public class Main {
         for (File file1 : collectFiles) {
             try {
                 if (file1.getName().contains("dates") && file1.getName().contains(".csv")) {
+                    System.out.println(file1.getName());
                     List<String> lines = Files.readAllLines(Paths.get(file1.getPath()));
                     lines.forEach(line -> collect.add(line));
                 }
@@ -194,6 +220,7 @@ public class Main {
         for (File file1 : collectFiles) {
             try {
                 if (file1.getName().contains("depths") && file1.getName().contains(".csv")) {
+                    System.out.println(file1.getName());
                     List<String> lines = Files.readAllLines(Paths.get(file1.getPath()));
                     lines.forEach(line -> collect.add(line));
                 }
@@ -254,26 +281,25 @@ public class Main {
         JSONObject fullObject = new JSONObject();
         for (int i = 0; i <= metro.getLines().size() - 1; i++) {
             Line line = metro.getLines().get(i);
-            JSONArray lineArray = new JSONArray();
-            lineArray.add(0, "name: " + line.getName());
-            lineArray.add(1, "number: " + line.getNumber());
+            JSONObject lineObject = new JSONObject();
+            lineObject.put("name: " + line.getName(), "number: " + line.getNumber());
             JSONArray stationsArray = new JSONArray();
-            for (int j = 0; j <=line.getStations().size() - 1; j++) {
+            for (int j = 0; j <= line.getStations().size() - 1; j++) {
                 Station station = line.getStations().get(j);
                 JSONObject stationObject = new JSONObject();
-                stationObject.put("name: " , station.getName());
-                if (!station.getDate().equals("")) {
-                    stationObject.put("date: ", station.getDate());
+                stationObject.put("name: ", station.getName());
+                if (!station.getDate().toString().equals("")) {
+                    stationObject.put("date: ", station.getDate().toString());
                 }
-                if (!station.getDepth().equals("")) {
+                if (station.getDepth() != 0) {
                     stationObject.put("depth: ", station.getDepth());
                 }
-                stationObject.put("hasConnection: " , station.getHasConnetion());
-                stationObject.put("number: " , station.getNumber());
+                stationObject.put("hasConnection: ", station.getHasConnetion());
+                stationObject.put("number: ", station.getNumber());
                 stationObject.put("line: ", station.getLine().getName());
                 stationsArray.add(j, stationObject);
             }
-            fullObject.put(lineArray, stationsArray);
+            fullObject.put(lineObject, stationsArray);
         }
         JSONObject object = new JSONObject(fullObject);
         try {
@@ -286,22 +312,22 @@ public class Main {
         }
     }
 
-    private static void getStationsJson (Metro metro) {
+    private static void getStationsJson(Metro metro) {
         JSONArray array = new JSONArray();
         for (int i = 0; i <= metro.getStations().size() - 1; i++) {
             Station station = metro.getStations().get(i);
-           JSONObject stationObject = new JSONObject();
-           stationObject.put("name: ", station.getName());
-           stationObject.put("line: ", station.getLine().getName());
-            if (!station.getDate().equals("")) {
-                stationObject.put("date: ", station.getDate());
+            JSONObject stationObject = new JSONObject();
+            stationObject.put("name: ", station.getName());
+            stationObject.put("line: ", station.getLine().getName());
+            if (!station.getDate().toString().equals("")) {
+                stationObject.put("date: ", station.getDate().toString());
             }
-            if (!station.getDepth().equals("")) {
+            if (station.getDepth() != 0) {
                 stationObject.put("depth: ", station.getDepth());
             }
-           stationObject.put("hasConnection", station.getHasConnetion());
-           stationObject.put("number: ", station.getNumber());
-           array.add(i, stationObject);
+            stationObject.put("hasConnection", station.getHasConnetion());
+            stationObject.put("number: ", station.getNumber());
+            array.add(i, stationObject);
         }
         try {
             PrintWriter writer = new PrintWriter("data/stations.json");
