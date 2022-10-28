@@ -77,7 +77,7 @@ public class Main {
                     break;
                 }
                 double depth;
-                LocalDate date = LocalDate.of(1,1,1);
+                LocalDate date = LocalDate.now();
                 String[] nameAry = element.text().split("\\.");
                 String stationName = nameAry[1].trim();
                 boolean hasConnection = false;
@@ -288,7 +288,7 @@ public class Main {
                 Station station = line.getStations().get(j);
                 JSONObject stationObject = new JSONObject();
                 stationObject.put("name: ", station.getName());
-                if (!station.getDate().toString().equals("")) {
+                if (!station.getDate().equals(LocalDate.now())) {
                     stationObject.put("date: ", station.getDate().toString());
                 }
                 if (station.getDepth() != 0) {

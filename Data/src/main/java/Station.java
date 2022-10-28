@@ -1,6 +1,6 @@
 import java.time.LocalDate;
 
-public class Station implements Comparable<Station> {
+public class Station  {
 
     private final int number;
     private final double depth;
@@ -57,10 +57,5 @@ public class Station implements Comparable<Station> {
                 "Порядковый номер: " + number + "\n" +
                 "Есть пересадка? " + hasConnection + "\n\n";
         return toString;
-    }
-
-    @Override
-    public int compareTo(Station o) {
-        return 0;
     }
 }
