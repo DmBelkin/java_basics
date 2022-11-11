@@ -1,7 +1,7 @@
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "skillbox")
+@Table(name = "Courses")
 public class Course {
 
     private String description;
@@ -21,7 +21,7 @@ public class Course {
     private int studentsCount;
     @Column(name = "teacher_id")
     private int teacherId;
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "enum")
     private CourseType type;
 

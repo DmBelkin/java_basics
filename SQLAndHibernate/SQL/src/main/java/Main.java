@@ -5,24 +5,23 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-    public class Main {
+public class Main {
 
-        public static void main(String[] args) {
-            try {
-                StandardServiceRegistry registry = new StandardServiceRegistryBuilder().
-                        configure("hibernate.cfg.xml").build();
-                Metadata metadata = new MetadataSources(registry).getMetadataBuilder().build();
-                SessionFactory factory = metadata.getSessionFactoryBuilder().build();
+    public static void main(String[] args) {
 
-                Session session = factory.openSession();
+        StandardServiceRegistry registry = new StandardServiceRegistryBuilder().
+                configure("hibernate.cfg.xml").build();
+        Metadata metadata = new MetadataSources(registry).getMetadataBuilder().build();
+        SessionFactory factory = metadata.getSessionFactoryBuilder().build();
 
-                Course course = session.get(Course.class, 1);
-                System.out.println(course.getName());
+        Session session = factory.openSession();
 
-                factory.close();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
+        Course course = session.get(Course.class, 1);
+        System.out.println(course.getName());
+
+        factory.close();
+
     }
+}
+
 
