@@ -7,10 +7,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import javax.sound.midi.Soundbank;
-import javax.swing.*;
-import javax.swing.text.DateFormatter;
-import java.awt.image.AreaAveragingScaleFilter;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -20,34 +16,33 @@ import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 public class Main {
 
-    private static final Metro metro = new Metro();
-    private static final String file = "data/data";
+    private static  String file = "data/data";
 
-    private static String path = "";
     private static final ArrayList<String[]> depthCollect = new ArrayList<>();
     private static final ArrayList<String[]> dateCollect = new ArrayList<>();
     private static final ArrayList<File> collectFiles = new ArrayList<>();
 
 
     public static void main(String[] args) {
+        Metro metro = new Metro();
         try {
             Document document = Jsoup.connect("https://skillbox-java.github.io/").get();
             Elements stations = document.select("p");
             Elements lines = document.select(".t-icon-metroln[data-line]");
-            parseLine(lines);
-            parseStations(stations);
+            parseLine(lines, metro);
+            parseStations(stations, metro);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+
         getMetroJson(metro);
         getStationsJson(metro);
     }
 
-    private static void parseLine(Elements lines) {
+    private static void parseLine(Elements lines, Metro metro) {
         for (Element element : lines) {
             String lineName = element.text();
             String numberRegex = "[\"D0-9A-D]{3,5}";
@@ -61,10 +56,10 @@ public class Main {
             }
             metro.setLines(new Line(lineNumber, lineName));
         }
-        fileReader();
+        jsonParser(fileReader(file));
     }
 
-    private static void parseStations(Elements stations) {
+    private static void parseStations(Elements stations, Metro metro) {
         int check = 0;
         for (int i = 0; i <= metro.getLines().size() - 1; ) {
             Line line = metro.getLines().get(i);
@@ -141,29 +136,16 @@ public class Main {
     }
 
 
-    private static ArrayList<File> fileReader() {
+    private static ArrayList<File> fileReader(String path) {
         File dataFile = new File(file);
         for (File f : dataFile.listFiles()) {
             if (f.isFile()) {
                 collectFiles.add(f);
-            }
-            if (f.isDirectory()) {
-                for (File f1 : f.listFiles()) {
-                    if (f1.isFile()) {
-                        collectFiles.add(f1);
-                    }
-                    if (f1.isDirectory()) {
-                        for (File file1 : f1.listFiles()) {
-                            if (file1.isFile()) {
-                                collectFiles.add(file1);
-                            }
-                        }
-                    }
-                }
+            } else {
+                file = f.getPath();
+                fileReader(file);
             }
         }
-        jsonParser();
-        System.out.println(collectFiles);
         return collectFiles;
     }
 
@@ -231,7 +213,7 @@ public class Main {
         return collect;
     }
 
-    private static void jsonParser() {
+    private static void jsonParser(ArrayList<File> filereader) {
         try {
             JSONParser parser = new JSONParser();
             JSONArray dateArray = (JSONArray) parser.parse(jsonDateParser());
@@ -303,7 +285,7 @@ public class Main {
         }
         JSONObject object = new JSONObject(fullObject);
         try {
-            PrintWriter writer = new PrintWriter("data/metro.json");
+            PrintWriter writer = new PrintWriter("out/metro.json");
             object.writeJSONString(writer);
             writer.flush();
             writer.close();
@@ -330,7 +312,7 @@ public class Main {
             array.add(i, stationObject);
         }
         try {
-            PrintWriter writer = new PrintWriter("data/stations.json");
+            PrintWriter writer = new PrintWriter("out/stations.json");
             array.writeJSONString(writer);
             writer.flush();
             writer.close();
