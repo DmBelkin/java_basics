@@ -1,6 +1,6 @@
 import java.time.LocalDateTime;
 
-public class Purchase {
+public class Purchase implements Comparable<Purchase> {
 
     private LocalDateTime subscriptionsDate;
 
@@ -50,5 +50,23 @@ public class Purchase {
     @Override
     public String toString() {
         return "" + subscriptionsDate;
+    }
+    @Override
+    public int compareTo(Purchase o) {
+        if(subscriptionsDate.isAfter(o.getSubscriptionsDate())) {
+            return 1;
+        }
+        else if (subscriptionsDate.isBefore(o.getSubscriptionsDate())) {
+            return -1;
+        }
+        return 0;
+    }
+
+    public boolean equals(Purchase o) {
+        if (subscriptionsDate.getMonth().equals(o.getSubscriptionsDate().getMonth()) &&
+        courseName.equals(o.getCourseName())) {
+            return true;
+        }
+        return false;
     }
 }

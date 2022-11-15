@@ -4,10 +4,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Main {
 
@@ -44,13 +41,13 @@ public class Main {
                 }
             }
             for (Map.Entry<String, List<Purchase>> map : purchaseList.entrySet()) {
-                double months = 0;
-                for (Purchase purchase : map.getValue()) {
-                    for (Purchase purchase1 : map.getValue()) {
-                        if (!purchase.getSubscriptionsDate().equals(purchase1.getSubscriptionsDate())) {
-                            months++;
-                            break;
-                        }
+                double months = 1;
+                Collections.sort(map.getValue());
+                int j = 0;
+                for (int i = 0; i <= map.getValue().size() - 1; i++) {
+                    if (!map.getValue().get(i).equals(map.getValue().get(j))) {
+                        months++;
+                        j++;
                     }
                 }
                 if (map.getValue().size() != 0) {
