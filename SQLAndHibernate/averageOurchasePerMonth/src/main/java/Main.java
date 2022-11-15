@@ -41,17 +41,12 @@ public class Main {
                 }
             }
             for (Map.Entry<String, List<Purchase>> map : purchaseList.entrySet()) {
-                double months = 1;
                 Collections.sort(map.getValue());
-                int j = 0;
-                for (int i = 0; i <= map.getValue().size() - 1; i++) {
-                    if (!map.getValue().get(i).equals(map.getValue().get(j))) {
-                        months++;
-                        j++;
-                    }
-                }
                 if (map.getValue().size() != 0) {
-                    double average = map.getValue().size() / months;
+                    double zone = map.getValue().get(map.getValue().size() - 1).
+                            getSubscriptionsDate().getMonth().getValue() -
+                            map.getValue().get(0).getSubscriptionsDate().getMonth().getValue();
+                    double average =  map.getValue().size() / zone;
                     System.out.println(map.getKey() + "-" + "в среднем за мес€ц: " +
                             average);
                 } else {
