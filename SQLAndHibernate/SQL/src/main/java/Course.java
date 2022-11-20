@@ -1,5 +1,7 @@
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "Courses")
 public class Course {
@@ -10,24 +12,24 @@ public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "Subscriptions", joinColumns = {@JoinColumn(name = "course_id")},
+    inverseJoinColumns = {@JoinColumn(name = "id")})
+    private List<Subscriptions> Id;
 
     private String name;
 
     private int price;
     @Column(name = "price_per_hour")
     private float pricePerHour;
-    @Column(name = "students_count")
-    private int studentsCount;
-    @Column(name = "teacher_id")
-    private int teacherId;
+    @Column(name = "students_count",nullable = true)
+    private Integer studentsCount;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Teacher teacher;
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "enum")
     private CourseType type;
 
-    public Course() {
-
-    }
 
     public void setDescription(String description) {
         this.description = description;
@@ -53,12 +55,12 @@ public class Course {
         return price;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(List<Subscriptions> courseId ) {
+        this.Id = Id;
     }
 
-    public int getId() {
-        return id;
+    public List<Subscriptions> getId() {
+        return Id;
     }
 
     public void setName(String name) {
@@ -77,12 +79,12 @@ public class Course {
         return studentsCount;
     }
 
-    public void setTeacherId(int teacherId) {
-        this.teacherId = teacherId;
+    public void setTeacherId(Teacher teacherId) {
+        this.teacher = teacherId;
     }
 
-    public int getTeacherId() {
-        return teacherId;
+    public Teacher getTeacherId() {
+        return teacher;
     }
 
     public void setPricePerHour(float pricePerHour) {
@@ -100,5 +102,6 @@ public class Course {
     public CourseType getType() {
         return type;
     }
+
 }
 
