@@ -1,34 +1,30 @@
 import jakarta.persistence.*;
 
-import java.util.List;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "Courses")
-public class Course {
+public class Course implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int Id;
+    private String name;
+    private int duration;
+    @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "enum")
+    private CourseType type;
 
     private String description;
 
-    private int duration;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "Subscriptions", joinColumns = {@JoinColumn(name = "course_id")},
-    inverseJoinColumns = {@JoinColumn(name = "id")})
-    private List<Subscriptions> Id;
-
-    private String name;
+    @Column(name = "teacher_id")
+    private int teacherId;
+    @Column(name = "students_count")
+    private int studentsCount;
 
     private int price;
     @Column(name = "price_per_hour")
     private float pricePerHour;
-    @Column(name = "students_count",nullable = true)
-    private Integer studentsCount;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Teacher teacher;
-    @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "enum")
-    private CourseType type;
+
 
 
     public void setDescription(String description) {
@@ -55,11 +51,11 @@ public class Course {
         return price;
     }
 
-    public void setId(List<Subscriptions> courseId ) {
+    public void setId(int courseId ) {
         this.Id = Id;
     }
 
-    public List<Subscriptions> getId() {
+    public int getId() {
         return Id;
     }
 
@@ -79,12 +75,12 @@ public class Course {
         return studentsCount;
     }
 
-    public void setTeacherId(Teacher teacherId) {
-        this.teacher = teacherId;
+    public void setTeacherId(int teacherId) {
+        this.teacherId = teacherId;
     }
 
-    public Teacher getTeacherId() {
-        return teacher;
+    public int getTeacherId() {
+        return teacherId;
     }
 
     public void setPricePerHour(float pricePerHour) {
