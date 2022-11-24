@@ -1,23 +1,25 @@
 import jakarta.persistence.*;
-
 import java.io.Serializable;
 
+
 @Entity
-@Table(name = "Courses")
+@Table(name = "courses")
 public class Course implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id;
+    @Column(name = "id")
+    private int courseId;
     private String name;
     private int duration;
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "enum")
-    private CourseType type;
+    private CourseType courseType;
 
     private String description;
 
-    @Column(name = "teacher_id")
-    private int teacherId;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Teachers teacherId;
     @Column(name = "students_count")
     private int studentsCount;
 
@@ -52,11 +54,11 @@ public class Course implements Serializable {
     }
 
     public void setId(int courseId ) {
-        this.Id = Id;
+        this.courseId = courseId;
     }
 
     public int getId() {
-        return Id;
+        return courseId;
     }
 
     public void setName(String name) {
@@ -75,11 +77,11 @@ public class Course implements Serializable {
         return studentsCount;
     }
 
-    public void setTeacherId(int teacherId) {
+    public void setTeacherId(Teachers teacherId) {
         this.teacherId = teacherId;
     }
 
-    public int getTeacherId() {
+    public Teachers getTeacher() {
         return teacherId;
     }
 
@@ -91,12 +93,12 @@ public class Course implements Serializable {
         return pricePerHour;
     }
 
-    public void setType(CourseType type) {
-        this.type = type;
+    public void setType(CourseType courseType) {
+        this.courseType = courseType;
     }
 
     public CourseType getType() {
-        return type;
+        return courseType;
     }
 
 }
