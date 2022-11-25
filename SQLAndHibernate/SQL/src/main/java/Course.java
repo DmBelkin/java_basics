@@ -3,7 +3,7 @@ import java.io.Serializable;
 
 
 @Entity
-@Table(name = "courses")
+@Table(name = "Courses")
 public class Course implements Serializable {
 
     @Id
@@ -13,6 +13,7 @@ public class Course implements Serializable {
     private String name;
     private int duration;
     @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "enum('DESIGN','PROGRAMMING','MARKETING','MANAGEMENT','BUSINESS')")
     private CourseType courseType;
 
     private String description;
@@ -99,6 +100,15 @@ public class Course implements Serializable {
 
     public CourseType getType() {
         return courseType;
+    }
+
+    public enum CourseType {
+        DESIGN,
+        PROGRAMMING,
+        MARKETING,
+        MANAGEMENT,
+        BUSINESS
+
     }
 
 }

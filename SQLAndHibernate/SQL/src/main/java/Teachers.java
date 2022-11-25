@@ -1,7 +1,7 @@
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "teachers")
+@Table(name = "Teachers")
 public class Teachers {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -11,6 +11,7 @@ public class Teachers {
     private String name;
 
     private int salary;
+    private int age;
 
     public int getId() {
         return teacherId;
@@ -44,7 +45,7 @@ public class Teachers {
         this.age = age;
     }
 
-    private int age;
+
 
 
 }

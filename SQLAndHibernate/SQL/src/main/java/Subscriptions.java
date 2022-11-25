@@ -3,7 +3,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "subscriptions")
+@Table(name = "Subscriptions")
 public class Subscriptions {
     @Id
     @OneToOne(cascade = CascadeType.ALL)
