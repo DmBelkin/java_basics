@@ -8,21 +8,21 @@ public class Course implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private int courseId;
     private String name;
     private int duration;
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "enum('DESIGN','PROGRAMMING','MARKETING','MANAGEMENT','BUSINESS')")
-    private CourseType courseType;
+    private CourseType type;
 
     private String description;
 
 
     @ManyToOne(cascade = CascadeType.ALL)
-    private Teachers teacherId;
+    private Teachers teacher;
     @Column(name = "students_count")
-    private int studentsCount;
+    private Integer studentsCount;
 
     private int price;
     @Column(name = "price_per_hour")
@@ -70,20 +70,20 @@ public class Course implements Serializable {
         return name;
     }
 
-    public void setStudentsCount(int studentsCount) {
+    public void setStudentsCount(Integer studentsCount) {
         this.studentsCount = studentsCount;
     }
 
-    public int getStudentsCount() {
+    public Integer getStudentsCount() {
         return studentsCount;
     }
 
-    public void setTeacherId(Teachers teacherId) {
-        this.teacherId = teacherId;
+    public void setTeacherId(Teachers teacher) {
+        this.teacher = teacher;
     }
 
     public Teachers getTeacher() {
-        return teacherId;
+        return teacher;
     }
 
     public void setPricePerHour(float pricePerHour) {
@@ -94,12 +94,20 @@ public class Course implements Serializable {
         return pricePerHour;
     }
 
-    public void setType(CourseType courseType) {
-        this.courseType = courseType;
+    public void setType(CourseType type) {
+        this.type = type;
     }
 
     public CourseType getType() {
-        return courseType;
+        return type;
+    }
+    @Override
+    public String toString() {
+        return "courseId: " + getId() + "\n" +
+                "courseName: " + getName() + "\n" +
+                "courseType: " + getType() + "\n" +
+                "price: " + getPrice() + "\n" +
+                "teacher" + getTeacher() + "\n";
     }
 
     public enum CourseType {

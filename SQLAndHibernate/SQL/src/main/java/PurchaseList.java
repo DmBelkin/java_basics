@@ -1,7 +1,4 @@
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
@@ -9,6 +6,12 @@ import java.time.LocalDate;
 @Table(name = "Purchaselist")
 public class PurchaseList {
     @Id
+    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @Column(name = "subscription_date")
+    private LocalDate subscriptionDate;
+
     @Column(name = "student_name")
     private String studentName;
 
@@ -16,9 +19,6 @@ public class PurchaseList {
     private String courseName;
     @Column(name = "price")
     private int price;
-
-    @Column(name = "subscription_date")
-    private LocalDate subscriptionDate;
 
     public String getStudentName() {
         return studentName;
@@ -52,5 +52,11 @@ public class PurchaseList {
         this.subscriptionDate = subscriptionDate;
     }
 
-
+    @Override
+    public String toString() {
+        return "studentName: " + getStudentName() + "\n" +
+                "subscriptiondate: " + getSubscriptionDate() + "\n" +
+                "price" + getPrice() + "\n" +
+                "coursename: " + getCourseName();
+    }
 }

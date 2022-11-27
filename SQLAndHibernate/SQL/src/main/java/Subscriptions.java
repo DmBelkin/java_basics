@@ -1,30 +1,33 @@
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "Subscriptions")
 public class Subscriptions {
-    @Id
-    @OneToOne(cascade = CascadeType.ALL)
-    private Students studentId;
     @ManyToOne(cascade = CascadeType.ALL)
-    private Course courseId;
+    private Students student;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Course course;
+    @Id
+    @Column (name = "subscription_date")
+    private LocalDate subscriptionsDate;
 
     public Students getStudentId() {
-        return studentId;
+        return student;
     }
 
-    public void setStudentId(Students studentId) {
-        this.studentId = studentId;
+    public void setStudentId(Students student) {
+        this.student = student;
     }
 
     public Course getCourseId() {
-        return courseId;
+        return course;
     }
 
-    public void setCourseId(Course courseId) {
-        this.courseId = courseId;
+    public void setCourseId(Course course) {
+        this.course = course;
     }
 
     public LocalDate getSubscriptionsDate() {
@@ -35,6 +38,11 @@ public class Subscriptions {
         this.subscriptionsDate = subscriptionsDate;
     }
 
-    @Column (name = "subscriptions_date")
-    private LocalDate subscriptionsDate;
+    @Override
+    public String toString() {
+        return "Course: " + getCourseId() + "\n" +
+                "Student: " + getStudentId() + "\n" +
+                "date: " + getSubscriptionsDate();
+    }
+
 }

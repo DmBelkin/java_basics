@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 public class Teachers {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private int teacherId;
 
     private String name;
@@ -44,8 +44,11 @@ public class Teachers {
     public void setAge(int age) {
         this.age = age;
     }
-
-
-
-
+    @Override
+    public String toString() {
+        return "имя: " + getName() + "\n" +
+                "id: " + getId() + "\n" +
+                "зарплата: " + getSalary() + "\n" +
+                "возраст: " + getAge();
+    }
 }
