@@ -6,6 +6,8 @@ import java.util.List;
 @Entity
 @Table(name = "Subscriptions")
 public class Subscriptions {
+
+
     @ManyToOne(cascade = CascadeType.ALL)
     private Students student;
     @ManyToOne(cascade = CascadeType.ALL)

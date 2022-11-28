@@ -46,9 +46,9 @@ public class Teachers {
     }
     @Override
     public String toString() {
-        return "имя: " + getName() + "\n" +
+        return "name: " + getName() + "\n" +
                 "id: " + getId() + "\n" +
-                "зарплата: " + getSalary() + "\n" +
-                "возраст: " + getAge();
+                "salary: " + getSalary() + "\n" +
+                "age: " + getAge();
     }
 }
