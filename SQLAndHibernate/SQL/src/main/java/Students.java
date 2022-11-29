@@ -9,7 +9,6 @@ public class Students {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    //@OneToOne(cascade = CascadeType.ALL)
     private int studentId;
 
     @Column(name = "name")

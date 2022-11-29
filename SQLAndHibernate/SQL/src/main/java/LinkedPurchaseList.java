@@ -8,8 +8,8 @@ import java.time.LocalDate;
 public class LinkedPurchaseList implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private  int id;
+    @Column(name = "id")
+    private int id;
     @Column(name = "subscription_date", nullable = true)
     private LocalDate subscriptonDate;
 
@@ -49,7 +49,7 @@ public class LinkedPurchaseList implements Serializable {
         return courseId;
     }
 
-    public void setCourseId(int course) {
+    public void setCourseId(int courseId) {
         this.courseId = courseId;
     }
 
