@@ -6,24 +6,26 @@ public class Manager implements Employee {
     private final String surName;
     private int monthSalary;
 
-    public Manager (String name, String patronymic, String surName, int monthSalary) {
+    private Company company;
+
+    public Manager (String name, String patronymic, String surName, int monthSalary, Company company) {
         this.name = name;
         this.patronymic = patronymic;
         this.surName = surName;
         this.monthSalary = monthSalary;
+        this.company = company;
     }
 
     @Override
     public int getMonthSalary() {
-        return monthSalary + (int)(Company.income * 0.005);
+        return monthSalary + (int)(company.getIncome() * 0.005);
     }
 
-    @Override
+
     public String getName() {
         return name;
     }
 
-    @Override
     public String getPatronymic() {
         return patronymic;
     }

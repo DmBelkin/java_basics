@@ -5,9 +5,9 @@ import java.util.List;
 
 public class Company {
 
-    protected ArrayList<Employee> employees = new ArrayList<>();
-    protected static int count;
-    protected static double income;
+    private ArrayList<Employee> employees = new ArrayList<>();
+    private int count;
+    private double income;
 
     public Company(double income) {
         this.income = income;
@@ -53,20 +53,6 @@ public class Company {
                 return 0;
             }
 
-            @Override
-            public String getName() {
-                return getName();
-            }
-
-            @Override
-            public String getPatronymic() {
-                return getPatronymic();
-            }
-
-            @Override
-            public String getSurname() {
-                return getSurname();
-            }
         };
     }
 
@@ -83,25 +69,23 @@ public class Company {
                return 0;
            }
 
-           @Override
-           public String getName() {
-               return null;
-           }
-
-           @Override
-           public String getPatronymic() {
-               return null;
-           }
-
-           @Override
-           public String getSurname() {
-               return null;
-           }
        };
     }
 
     public double getIncome() {
         return income;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+
+    }
+
+    public ArrayList<Employee> getEmployees() {
+        return new ArrayList<>(employees);
     }
 
     public String toString() {
