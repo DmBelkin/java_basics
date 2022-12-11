@@ -14,6 +14,7 @@ public class Main {
             if (input.equals("0")) {
                 break;
             } else {
+
                 command = input;
                 company.getIncome();
                 getCommand(command, company);

@@ -40,6 +40,7 @@ public class Company {
                 break;
             }
         }
+
         return employees.subList(employees.size() - count, employees.size());
 
     }
@@ -81,7 +82,6 @@ public class Company {
     }
 
     public void setCount(int count) {
-
     }
 
     public ArrayList<Employee> getEmployees() {

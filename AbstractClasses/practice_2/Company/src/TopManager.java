@@ -4,7 +4,6 @@ public class TopManager implements Employee {
     private final String patronymic;
     private final String surName;
     private int monthSalary;
-
     private Company company;
 
     public TopManager (String name, String patronymic, String surName, int monthSalary, Company company) {

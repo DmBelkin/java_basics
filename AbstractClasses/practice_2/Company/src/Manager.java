@@ -5,7 +5,6 @@ public class Manager implements Employee {
     private final String patronymic;
     private final String surName;
     private int monthSalary;
-
     private Company company;
 
     public Manager (String name, String patronymic, String surName, int monthSalary, Company company) {
