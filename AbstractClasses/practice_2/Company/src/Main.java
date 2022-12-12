@@ -2,9 +2,6 @@ import java.util.Scanner;
 
 public class Main {
 
-
-    private static String command;
-
     public static void main(String[] args) {
         Company company = new Company(13439384.56);
         Scanner scanner = new Scanner(System.in);
@@ -14,8 +11,7 @@ public class Main {
             if (input.equals("0")) {
                 break;
             } else {
-
-                command = input;
+                String command = input;
                 company.getIncome();
                 getCommand(command, company);
             }
@@ -47,12 +43,10 @@ public class Main {
                 company.hire(topManager);
                 break;
             case "Highest salaries":
-                company.setCount(scanner.nextInt());
-                company.getTopSalaryStaff(company.getCount());
+                company.getTopSalaryStaff(scanner.nextInt());
                 break;
             case "Lowest salaries":
-                company.setCount(scanner.nextInt());
-                company.getLowestSalaryStaff(company.getCount());
+                company.getLowestSalaryStaff(scanner.nextInt());
                 break;
             case "Fire":
                 System.out.println("¬ведите должность");
@@ -94,7 +88,6 @@ public class Main {
         int operatorSalary = 130700;
         int managerSalary = 150000;
         int topManagerSalary = 180000;
-        company.getIncome();
 
         for (String name : maleName) {
             for (String patronymic : malePatronymic) {

@@ -6,7 +6,6 @@ import java.util.List;
 public class Company {
 
     private ArrayList<Employee> employees = new ArrayList<>();
-    private int count;
     private double income;
 
     public Company(double income) {
@@ -18,43 +17,22 @@ public class Company {
     public List<Employee> getTopSalaryStaff(int count) {
         Comparator<Employee> comparator = (Employee o1, Employee o2) -> o2.getMonthSalary() - o1.getMonthSalary();
         Collections.sort(employees, comparator);
-        int check = 0;
-        for (Employee employee : employees) {
-            check++;
-            System.out.println(employee.getMonthSalary());
-            if (check == count) {
-                break;
-            }
-        }
+        employees.subList(0, count).stream().forEach(o -> System.out.println(o.toString()));
         return employees.subList(0, count);
     }
 
     public List<Employee> getLowestSalaryStaff(int count) {
         Comparator<Employee> comparator = (Employee o1, Employee o2) -> o2.getMonthSalary() - o1.getMonthSalary();
         Collections.sort(employees, comparator);
-        int check = 0;
-        for (int i = employees.size() - 1; i >= 0; i--) {
-            check++;
-            System.out.println(employees.get(i).getMonthSalary());
-            if (check == count) {
-                break;
-            }
-        }
-
+        employees.subList(employees.size() - count, employees.size()).stream().
+                forEach(o -> System.out.println(o.toString()));
         return employees.subList(employees.size() - count, employees.size());
-
     }
 
     public Employee hire(Employee employee) {
         employees.add(employee);
         System.out.println(employee);
-        return new Employee() {
-            @Override
-            public int getMonthSalary() {
-                return 0;
-            }
-
-        };
+        return employee;
     }
 
     public Employee fire(Employee employee) {
@@ -64,24 +42,11 @@ public class Company {
                 System.out.println("Fired");
             }
         }
-       return new Employee() {
-           @Override
-           public int getMonthSalary() {
-               return 0;
-           }
-
-       };
+       return employee;
     }
 
     public double getIncome() {
         return income;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
     }
 
     public ArrayList<Employee> getEmployees() {
@@ -94,7 +59,7 @@ public class Company {
         }
         String result = "";
         for (Employee employee : employees) {
-            result = result + employee.toString() + "\n";
+            result += employee.toString() + "\n";
         }
         return result;
     }
