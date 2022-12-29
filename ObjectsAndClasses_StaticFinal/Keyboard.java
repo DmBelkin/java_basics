@@ -1,7 +1,7 @@
 public class Keyboard {
     private final int keyboardWeight;
-    private KeyboardType type;
-    private KeyboardLight light;
+    private final KeyboardType type;
+    private final KeyboardLight light;
 
     public Keyboard( KeyboardType type, KeyboardLight light, int keyboardWeight) {
         this.type = type;
@@ -9,32 +9,24 @@ public class Keyboard {
         this.keyboardWeight = keyboardWeight;
     }
 
-
-    public Keyboard setKeyboardWeight(int keyboardWeight){
-        return new Keyboard(type, light, keyboardWeight);
-    }
-    public int getKeyboardWeight() {
-        return keyboardWeight;
+    public KeyboardType getKeyType() {
+        return type;
     }
 
-    public void setLight(KeyboardLight light) {
-        this.light = light;
-    }
-    public KeyboardLight getLight() {
+    public KeyboardLight getKeysLight() {
         return light;
     }
 
-    public void setType(KeyboardType type) {
-        this.type = type;
-    }
-    public KeyboardType getType() {
-        return  type;
+
+    public int getWeight() {
+        return keyboardWeight;
     }
 
-    public String print(String print){
-        print = "Клавиатура: " + "\n" + "Подсветка: " + light  + "\n" + "Тип: " + type
-                + "\n" + "Вес: " + keyboardWeight;
-        return  print;
+    public String toString (){
+        System.out.println("Клавиатура: " + "\n" + "Подсветка: " + getKeysLight() + "\n" + "Тип: " + getKeyType()
+                + "\n" + "Вес: " + getWeight());
+        System.out.println();
+        return  "";
     }
 
 }

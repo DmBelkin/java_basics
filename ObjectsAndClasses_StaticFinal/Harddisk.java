@@ -1,34 +1,37 @@
+
+
 public class Harddisk {
 
-    private Harddisktype hardDiskType;
+    private final Harddisktype hardDiskType;
     private final int hdMemorySize;
-    private final int hdWeight;
+    protected final int hdWeight;
 
     public Harddisk(Harddisktype harddisktype, int hdMemorySize, int hdWeight) {
         this.hardDiskType = harddisktype;
         this.hdMemorySize = hdMemorySize;
         this.hdWeight = hdWeight;
     }
-    public void setHardDiskType(Harddisktype harddisktype) {
-    }
-    public Harddisktype getHardDiskType() {
+
+    public Harddisktype getHdType() {
         return hardDiskType;
     }
-    public Harddisk setHdMemorySize(int hdMemorySize) {
-        return new Harddisk(hardDiskType, hdMemorySize, hdWeight);
+
+    public int getMemSize() {
+        return hdMemorySize;
     }
-    public int getHdMemorySize() {
-        return  hdMemorySize;
-    }
-    public Harddisk setHdWeight(int hdWeight) {
-        return new Harddisk(hardDiskType, hdMemorySize, hdWeight);
-    }
-    public int getHdWeight() {
+
+    public int getWeight() {
         return hdWeight;
     }
-    public String print(String print) {
-        print = "Жесткий диск: " + "\n" + "Тип: " + hardDiskType + "\n" + "Объем:"  + hdMemorySize
-                + "\n" + "Вес: " + hdWeight;
-        return print;
+
+    public Harddisk getHdWeight(int hdWeight) {
+        return new Harddisk(hardDiskType, hdMemorySize, hdWeight);
+    }
+
+    public String toString () {
+        System.out.println("Жесткий диск: " + "\n" + "Тип: " + getHdType() + "\n" + "Объем:"  + getMemSize()
+                + "\n" + "Вес: " + getWeight());
+        System.out.println();
+        return "";
     }
 }

@@ -1,8 +1,8 @@
 public class Monitor {
 
-    private Monitortype monitorType;
+    private final Monitortype monitorType;
     private final int diag;
-    private final int monitorWeight;
+    public final int monitorWeight;
 
     public Monitor(Monitortype monitortype, int diag, int monitorWeight) {
         this.monitorType = monitortype;
@@ -10,29 +10,22 @@ public class Monitor {
         this.monitorWeight = monitorWeight;
     }
 
-    public void setMonitorType(Monitortype monitortype) {
-    }
-    public Monitortype getMonitorType() {
+    public Monitortype getType() {
         return monitorType;
     }
 
-    public Monitor setDiag(int diag) {
-        return new Monitor(monitorType, diag, monitorWeight);
-    }
     public int getDiag() {
         return diag;
     }
 
-    public Monitor setMonitorWeight(int monitorWeight) {
-        return new Monitor(monitorType, diag, monitorWeight);
-    }
-    public int getMonitorWeight() {
+    public int getWeight() {
         return monitorWeight;
     }
 
-    public String print(String print) {
-            print = "Монитор: " + "\n" + "Тип: " + monitorType + "\n" + "Диагональ:" + diag
-                    + "\n" + "Вес: " + monitorWeight;
-            return print;
+    public String toString() {
+        System.out.println("Монитор: " + "\n" + "Тип: " + getType() + "\n" + "Диагональ:" + getDiag()
+                    + "\n" + "Вес: " + getWeight());
+        System.out.println();
+            return "";
     }
 }
