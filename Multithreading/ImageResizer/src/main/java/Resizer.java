@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Resizer extends Thread {
 
-    private final String dstFolder = "C:/Users/Дима и Ната/Desktop/dst/";
+    private final String dstFolder = "C:/Desktop/dst/";
     private ArrayList<File> collect;
     private final int targetSize = 300;
     private BufferedImage image;
