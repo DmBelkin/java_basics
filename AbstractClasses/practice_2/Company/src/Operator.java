@@ -5,11 +5,14 @@ public class Operator implements Employee{
     private final String surName;
     private int monthSalary;
 
-    public Operator (String name, String patronymic, String surName, int monthSalary) {
+    private Company company;
+
+    public Operator (String name, String patronymic, String surName, int monthSalary, Company company) {
         this.name = name;
         this.patronymic = patronymic;
         this.surName = surName;
         this.monthSalary = monthSalary;
+        this.company = company;
     }
     @Override
     public String getName () {
@@ -26,6 +29,10 @@ public class Operator implements Employee{
     @Override
     public int getMonthSalary() {
         return monthSalary;
+    }
+    @Override
+    public Company getCompany() {
+        return company;
     }
     @Override
     public String toString() {
