@@ -5,17 +5,16 @@ public class Main {
     private static String command;
 
     public static void main(String[] args) {
-        Company company = new Company();
+        Company company = new Company(40838657);
         Scanner scanner = new Scanner(System.in);
         generator(company);
-        System.out.println(company.employees.size());
+        System.out.println(company.getEmployees().size());
         while (true) {
             String input = scanner.nextLine();
             if (input.equals("0")) {
                 break;
             } else {
                 command = input;
-                company.getIncome(120003452);
                 getCommand(command, company);
             }
         }
@@ -43,12 +42,10 @@ public class Main {
                 company.hire(topManager);
                 break;
             case "Highest salaries":
-                company.count = scanner.nextInt();
-                company.getTopSalaryStaff(company.count);
+                company.getTopSalaryStaff(scanner.nextInt());
                 break;
             case "Lowest salaries":
-                company.count = scanner.nextInt();
-                company.getLowestSalaryStaff(company.count);
+                company.getLowestSalaryStaff(scanner.nextInt());
                 break;
             case "Fire":
                 System.out.println("¬ведите должность");
@@ -92,24 +89,23 @@ public class Main {
         int operatorSalary = 130700;
         int managerSalary = 150000;
         int topManagerSalary = 180000;
-        company.getIncome(120003452);
 
         for (String name : maleName) {
             for (String patronymic : malePatronymic) {
                 for (String surName : maleSurName) {
-                    if (company.employees.size() < 90) {
+                    if (company.getEmployees().size() < 90) {
                         Operator operator = new Operator(name, patronymic, surName, operatorSalary, company);
                         company.hire(operator);
                     }
-                    if (company.employees.size() >= 90 && company.employees.size() < 130) {
+                    if (company.getEmployees().size() >= 90 && company.getEmployees().size() < 130) {
                         Manager manager = new Manager(name, patronymic, surName, managerSalary, company);
                         company.hire(manager);
                     }
-                    if (company.employees.size() >= 130 && company.employees.size() < 135) {
+                    if (company.getEmployees().size() >= 130 && company.getEmployees().size() < 135) {
                         TopManager topManager = new TopManager(name, patronymic, surName, topManagerSalary, company);
                         company.hire(topManager);
                     }
-                    if (company.employees.size() == 135) {
+                    if (company.getEmployees().size() == 135) {
                         break;
                     }
                 }
@@ -118,19 +114,19 @@ public class Main {
         for (String name : femaleName) {
             for (String patronymic : femalePatronymic) {
                 for (String surName : femaleSurname) {
-                    if (company.employees.size() < 225) {
+                    if (company.getEmployees().size() < 225) {
                         Operator operator = new Operator(name, patronymic, surName, operatorSalary, company);
                         company.hire(operator);
                     }
-                    if (company.employees.size() >= 225 && company.employees.size() <= 265) {
+                    if (company.getEmployees().size() >= 225 && company.getEmployees().size() <= 265) {
                         Manager manager = new Manager(name, patronymic, surName, managerSalary, company);
                         company.hire(manager);
                     }
-                    if (company.employees.size() > 265 && company.employees.size() < 270) {
-                        TopManager topManager = new TopManager(name, patronymic, surName, topManagerSalary, company);
+                    if (company.getEmployees().size() > 265 && company.getEmployees().size() < 270) {
+                        TopManager topManager= new TopManager(name, patronymic, surName, topManagerSalary, company);
                         company.hire(topManager);
                     }
-                    if (company.employees.size() == 270) {
+                    if (company.getEmployees().size() == 270) {
                         break;
                     }
                 }

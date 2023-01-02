@@ -14,15 +14,12 @@ public class Operator implements Employee{
         this.monthSalary = monthSalary;
         this.company = company;
     }
-    @Override
     public String getName () {
         return  name;
     }
-    @Override
     public String getPatronymic () {
         return  patronymic;
     }
-    @Override
     public String getSurname () {
         return surName;
     }
@@ -30,7 +27,6 @@ public class Operator implements Employee{
     public int getMonthSalary() {
         return monthSalary;
     }
-    @Override
     public Company getCompany() {
         return company;
     }

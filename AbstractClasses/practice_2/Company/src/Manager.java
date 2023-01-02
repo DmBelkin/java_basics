@@ -17,15 +17,15 @@ public class Manager implements Employee {
 
     @Override
     public int getMonthSalary() {
-        return monthSalary + (int)(company.income * 0.005);
+        return monthSalary + (int)(company.getIncome() * 0.005);
     }
 
-    @Override
+
     public String getName() {
         return name;
     }
 
-    @Override
+
     public String getPatronymic() {
         return patronymic;
     }
@@ -33,7 +33,7 @@ public class Manager implements Employee {
     public String getSurname() {
         return surName;
     }
-    @Override
+
     public Company getCompany() {
         return company;
     }

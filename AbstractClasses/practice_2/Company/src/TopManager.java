@@ -15,29 +15,26 @@ public class TopManager implements Employee {
         this.company = company;
     }
 
-    @Override
     public String getName() {
         return name;
     }
 
-    @Override
     public String getPatronymic() {
         return patronymic;
     }
 
-    @Override
     public String getSurname() {
         return surName;
     }
 
     @Override
     public int getMonthSalary() {
-        if (company.income > 10000000) {
+        if (company.getIncome() > 10000000) {
             return monthSalary + (int)(monthSalary * 1.5);
         }
         return monthSalary;
     }
-    @Override
+
     public Company getCompany() {
         return company;
     }

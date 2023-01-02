@@ -46,7 +46,7 @@ public class Company {
     }
 
     public double getIncome() {
-        return income;
+        return income * Math.random();
     }
 
     public ArrayList<Employee> getEmployees() {
