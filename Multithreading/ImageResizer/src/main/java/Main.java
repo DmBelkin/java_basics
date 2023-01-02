@@ -24,7 +24,7 @@ public class Main {
                     Resizer resizer = new Resizer(new ArrayList<>(collect.
                             subList(startIndex, i)));
                     resizer.start();
-                    startIndex += coreAmount;
+                    startIndex += i;
                     if (startIndex > collect.size() - 1) {
                         startIndex = collect.size() - 1;
                     }
