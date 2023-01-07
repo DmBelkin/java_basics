@@ -13,12 +13,17 @@ public class Main {
         bank.toString();
         System.out.println(bank.getSumAllAccounts());
 
-        for (int i = 0; i <= 50; i++) {
-            bank.transfer(Integer.toString(i), Integer.toString(50 - i),
-                    new AtomicLong(60000), bank);
+        for (int i = 0; i <= 25; i++) {
+            if (i % 2 ==0 ) {
+                bank.transfer(Integer.toString(i), Integer.toString(50 - i),
+                        new AtomicLong(7000), bank);
+            } else {
+                bank.transfer(Integer.toString(i), Integer.toString(50 - i),
+                        new AtomicLong(60000), bank);
+            }
         }
         try {
-            Thread.sleep(10000);
+            Thread.sleep(100000);
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }
