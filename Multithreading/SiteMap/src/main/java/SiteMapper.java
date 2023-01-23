@@ -3,12 +3,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import javax.imageio.IIOException;
 import java.io.*;
-import java.sql.SQLTransactionRollbackException;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class SiteMapper {
 
