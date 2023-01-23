@@ -24,9 +24,7 @@ public class SiteMapper {
             "a[class=card-full-news _subrubric]"
     };
 
-    private static Set<Element> set = new HashSet<>();
-
-    public static void main(String[] args) {
+     public static void main(String[] args) {
         Elements elements = getDocs(mainURL, query[0]);
         elements.remove(0);
         for (Element element : elements) {
@@ -50,7 +48,7 @@ public class SiteMapper {
 
     public static void mapper(Element element) {
         try {
-            Thread.sleep((int) (10 * Math.random()));
+            Thread.sleep((int)(10 * Math.random()));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -58,6 +56,7 @@ public class SiteMapper {
         Elements elements = getDocs(element.absUrl("href"), query[1]);
         for (Element element1 : elements) {
             siteMap.add("\s\s\s\s\s\s" + element1.absUrl("href") + "\n");
+            System.out.println("\s\s" + element1.text());
             Elements elements1 = getDocs(element1.absUrl("href"), query[2]);
             for (Element element2 : elements1) {
                 siteMap.add("\s\s\s\s\s\s\s\s\s" + element2.absUrl("href") + "\n");
