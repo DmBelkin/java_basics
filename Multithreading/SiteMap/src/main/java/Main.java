@@ -27,11 +27,6 @@ public class Main {
             }
         }, siteMap);
         Set<ParseLevel> list =  new ForkJoinPool().invoke(parser);
-        try {
-            Thread.sleep(10000);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
         siteMap.mapper();
         System.out.println(siteMap.getSiteMap());
     }
