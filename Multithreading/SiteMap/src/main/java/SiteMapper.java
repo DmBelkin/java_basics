@@ -48,10 +48,12 @@ public class SiteMapper {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        System.out.println(element.attr("href"));
         siteMap.add("\s\s" + element.absUrl("href") + "\n");
         Elements elements = getDocs(element.absUrl("href"), query[1]);
         for (Element element1 : elements) {
             siteMap.add("\s\s\s\s\s\s" + element1.absUrl("href") + "\n");
+            System.out.println(element1.attr("href"));
             System.out.println("\s\s" + element1.text());
             Elements elements1 = getDocs(element1.absUrl("href"), query[2]);
             for (Element element2 : elements1) {
