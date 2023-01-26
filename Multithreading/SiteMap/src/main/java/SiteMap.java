@@ -4,22 +4,18 @@ public class SiteMap {
 
     private Set<ParseLevel> firstLevel = new HashSet<>();
     private Set<ParseLevel> subLevel = new HashSet<>();
-
     private Set<ParseLevel> thirdLevel = new HashSet<>();
     private StringBuilder siteMap = new StringBuilder().append("https://lenta.ru/" + "\n");
 
 
-    public synchronized void setLevel (ParseLevel parseLevel) {
+    public void setLevel (ParseLevel parseLevel) {
         if (parseLevel.getDirectory().equals("directory")) {
-            System.out.println("1");
             firstLevel.add(parseLevel);
         }
         else if (parseLevel.getDirectory().equals("subdirectory")) {
-            System.out.println("2");
             subLevel.add(parseLevel);
         }
         else if (parseLevel.getDirectory().equals("news")){
-            System.out.println("3");
             thirdLevel.add(parseLevel);
         }
     }

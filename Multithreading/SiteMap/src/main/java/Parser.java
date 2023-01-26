@@ -24,15 +24,12 @@ public class Parser extends RecursiveTask<Set<ParseLevel>> {
         List<Parser> taskList = new ArrayList<>();
         Set<ParseLevel> set = new HashSet<>();
         try {
-            Elements elements;
-            synchronized (level) {
-                Document document = Jsoup.connect(level.getUrl()).userAgent("Mozilla").get();
-                elements = document.select(level.getQuery());
-            }
+            Document document = Jsoup.connect(level.getUrl()).userAgent("Mozilla").get();
+            Elements elements = document.select(level.getQuery());
             for (Element element : elements) {
                 String urlChildName = element.absUrl("href");
                 if (element.attr("href").startsWith("http") ||
-                                urlChildName.equals("") || urlChildName.equals("/")) {
+                        urlChildName.equals("") || urlChildName.equals("/")) {
                     continue;
                 }
                 String[] ary = element.attr("href").split("/");
@@ -53,16 +50,15 @@ public class Parser extends RecursiveTask<Set<ParseLevel>> {
                     siteMap.setLevel(new LentaUrl(urlChildName, level.getUrl(), "news"));
                 }
             }
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
         for (Parser parser : taskList) {
-           for (ParseLevel parseLevel : parser.join()) {
-               siteMap.setLevel(parseLevel);
-               System.out.println(parseLevel);
-           }
+            for (ParseLevel parseLevel : parser.join()) {
+                siteMap.setLevel(parseLevel);
+                System.out.println(parseLevel);
+            }
         }
         return set;
     }
-
 }
