@@ -7,6 +7,8 @@ public class SiteMap {
     private Set<ParseLevel> thirdLevel = new HashSet<>();
     private StringBuilder siteMap = new StringBuilder().append("https://lenta.ru/" + "\n");
 
+    private int count = 0;
+
 
     public void setLevel (ParseLevel parseLevel) {
         if (parseLevel.getDirectory().equals("directory")) {
@@ -23,12 +25,16 @@ public class SiteMap {
     public void mapper() {
         for (ParseLevel parseLevel : firstLevel) {
             siteMap.append("\s" + parseLevel.getUrl() + "\n");
+            count++;
             for (ParseLevel parseLevel1 : subLevel) {
                 if (parseLevel1.getParentUrl().equals(parseLevel.getUrl())) {
                     siteMap.append("\s\s" + parseLevel1.getUrl() + "\n");
+                    count++;
                     for (ParseLevel parseLevel2 : thirdLevel) {
-                        if (parseLevel1.getUrl().equals(parseLevel2.getParentUrl()))
-                        siteMap.append("\s\s\s\s\s" + parseLevel2.getUrl() + "\n");
+                        if (parseLevel1.getUrl().equals(parseLevel2.getParentUrl())) {
+                            siteMap.append("\s\s\s\s\s" + parseLevel2.getUrl() + "\n");
+                            count++;
+                        }
                     }
                 }
             }
@@ -37,6 +43,10 @@ public class SiteMap {
 
     public StringBuilder getSiteMap() {
         return siteMap;
+    }
+
+    public int getCount() {
+        return count;
     }
 
     @Override
