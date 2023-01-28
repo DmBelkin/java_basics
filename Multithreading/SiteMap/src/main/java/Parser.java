@@ -56,7 +56,6 @@ public class Parser extends RecursiveTask<Set<ParseLevel>> {
         for (Parser parser : taskList) {
             for (ParseLevel parseLevel : parser.join()) {
                 siteMap.setLevel(parseLevel);
-                System.out.println(parseLevel);
             }
         }
         return set;

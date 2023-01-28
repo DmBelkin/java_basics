@@ -4,9 +4,7 @@ public class LentaUrl implements ParseLevel{
 
     private String childNameUrl;
 
-
     private String parentUrl;
-
 
     private String directory;
 

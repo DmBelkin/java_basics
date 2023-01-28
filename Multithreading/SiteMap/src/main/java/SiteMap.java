@@ -22,7 +22,6 @@ public class SiteMap {
 
     public void mapper() {
         for (ParseLevel parseLevel : firstLevel) {
-            System.out.println("+++");
             siteMap.append("\s" + parseLevel.getUrl() + "\n");
             for (ParseLevel parseLevel1 : subLevel) {
                 if (parseLevel1.getParentUrl().equals(parseLevel.getUrl())) {

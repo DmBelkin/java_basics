@@ -1,15 +1,11 @@
-import javax.swing.*;
-import java.sql.DataTruncation;
+
 
 public class Url implements  ParseLevel{
 
-
     private String childUrl;
-
-
     private String parentUrl;
-
     private String directory;
+
 
     public Url (String childUrl, String parentUrl, String directory) {
         this.childUrl = childUrl;
