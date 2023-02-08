@@ -9,7 +9,6 @@ import java.util.concurrent.RecursiveTask;
 
 public class Parser extends RecursiveTask<Set<ParseLevel>> {
 
-
     private volatile ParseLevel level;
 
     private SiteMap siteMap;
@@ -34,20 +33,24 @@ public class Parser extends RecursiveTask<Set<ParseLevel>> {
                 }
                 String[] ary = element.attr("href").split("/");
                 if (ary.length == 3) {
-                    Url url = new Url(urlChildName, level.getUrl(), "directory");
+                    Url url = new Url(urlChildName, level, "directory");
                     siteMap.setLevel(url);
                     set.add(url);
                     Parser parser = new Parser(url, siteMap);
                     parser.fork();
                     taskList.add(parser);
-                } else if (ary.length == 4) {
-                    LentaUrl lentaUrl = new LentaUrl(urlChildName, level.getUrl(), "subdirectory");
-                    set.add(lentaUrl);
-                    Parser parser = new Parser(lentaUrl, siteMap);
-                    parser.fork();
-                    taskList.add(parser);
+                } else if (ary.length == 4 || ary.length == 5) {
+                    Url url = new Url(urlChildName, level, "subdirectory");
+                    if (url.containsDate()) {
+                        siteMap.setLevel(new Url(urlChildName, level, "news"));
+                    } else {
+                        set.add(url);
+                        Parser parser = new Parser(url, siteMap);
+                        parser.fork();
+                        taskList.add(parser);
+                    }
                 } else {
-                    siteMap.setLevel(new LentaUrl(urlChildName, level.getUrl(), "news"));
+                    siteMap.setLevel( new Url(urlChildName, level, "news"));
                 }
             }
         } catch (IOException ex) {
@@ -60,4 +63,5 @@ public class Parser extends RecursiveTask<Set<ParseLevel>> {
         }
         return set;
     }
+
 }

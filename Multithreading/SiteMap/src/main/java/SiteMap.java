@@ -1,40 +1,53 @@
+
+
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class SiteMap {
 
     private Set<ParseLevel> firstLevel = new HashSet<>();
-    private Set<ParseLevel> subLevel = new HashSet<>();
+    private  Set<ParseLevel> subLevel = new HashSet<>();
     private Set<ParseLevel> thirdLevel = new HashSet<>();
     private StringBuilder siteMap = new StringBuilder().append("https://lenta.ru/" + "\n");
 
     private int count = 0;
 
 
-    public void setLevel (ParseLevel parseLevel) {
+    public void setLevel(ParseLevel parseLevel) {
         if (parseLevel.getDirectory().equals("directory")) {
             firstLevel.add(parseLevel);
-        }
-        else if (parseLevel.getDirectory().equals("subdirectory")) {
+        } else if (parseLevel.getDirectory().equals("subdirectory")) {
             subLevel.add(parseLevel);
-        }
-        else if (parseLevel.getDirectory().equals("news")){
+        } else if (parseLevel.getDirectory().equals("news")) {
             thirdLevel.add(parseLevel);
         }
     }
 
     public void mapper() {
-        for (ParseLevel parseLevel : firstLevel) {
-            siteMap.append("\s" + parseLevel.getUrl() + "\n");
+        for (ParseLevel url : firstLevel) {
+            siteMap.append("\s" + url.getUrl() + "\n");
             count++;
-            for (ParseLevel parseLevel1 : subLevel) {
-                if (parseLevel1.getParentUrl().equals(parseLevel.getUrl())) {
-                    siteMap.append("\s\s" + parseLevel1.getUrl() + "\n");
+            for (ParseLevel url1 : subLevel) {
+                if (url1.getParentUrl().equals(url.getUrl())) {
+                    siteMap.append("\s\s" + url1.getUrl() + "\n");
                     count++;
-                    for (ParseLevel parseLevel2 : thirdLevel) {
-                        if (parseLevel1.getUrl().equals(parseLevel2.getParentUrl())) {
-                            siteMap.append("\s\s\s\s\s" + parseLevel2.getUrl() + "\n");
+                    for (ParseLevel url2 : thirdLevel) {
+                        if (url1.getUrl().equals(url2.getParentUrl())) {
+                            siteMap.append("\s\s\s\s\s" + url2.getUrl() + "\n");
                             count++;
                         }
+                    }
+                }
+            }
+        }
+        for (ParseLevel url1 : subLevel) {
+            if (url1.getUrl().contains("mycountry")) {
+                siteMap.append("\s\s" + url1.getUrl() + "\n");
+                count++;
+                for (ParseLevel url2 : thirdLevel) {
+                    if (url1.getUrl().equals(url2.getParentUrl())) {
+                        siteMap.append("\s\s\s\s\s" + url2.getUrl() + "\n");
+                        count++;
                     }
                 }
             }

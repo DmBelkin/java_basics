@@ -1,4 +1,5 @@
 
+
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Set;
@@ -20,19 +21,28 @@ public class Main {
             }
 
             @Override
-            public String getParentUrl() {
-                return "";
-            }
-            @Override
             public String getDirectory() {
                 return "site";
             }
+
+            @Override
+            public boolean containsDate() {
+                return false;
+            }
+
+            @Override
+            public String getParentUrl() {
+                return "";
+            }
         }, siteMap);
-        Set<ParseLevel> list =  new ForkJoinPool().invoke(parser);
+        Set<ParseLevel> list = new ForkJoinPool().invoke(parser);
+        System.out.println();
+        System.out.println();
         siteMap.mapper();
         System.out.println(siteMap.getSiteMap());
         System.out.println(siteMap.getCount());
         fileWriter(siteMap.getSiteMap());
+
     }
 
     private static void fileWriter(StringBuilder stringBuilder) {
