@@ -27,6 +27,12 @@ public class SiteMap {
         for (ParseLevel url : firstLevel) {
             siteMap.append("\s" + url.getUrl() + "\n");
             count++;
+            for (ParseLevel url4 : thirdLevel) {
+                if (url.getUrl().equals(url4.getParentUrl())) {
+                    siteMap.append("\s\s\s\s\s" + url4.getUrl() + "\n");
+                    count++;
+                }
+            }
             for (ParseLevel url1 : subLevel) {
                 if (url1.getParentUrl().equals(url.getUrl())) {
                     siteMap.append("\s\s" + url1.getUrl() + "\n");

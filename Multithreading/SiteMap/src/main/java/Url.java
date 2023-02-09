@@ -35,7 +35,13 @@ public class Url implements  ParseLevel{
 
     @Override
     public String getQuery() {
-         if (parentElement.getDirectory().equals("site")) {;
+         if (parentElement.getDirectory().equals("site")) {
+             if (url.contains("photo")) {
+                 return "a[class=card-photo]";
+             }
+             else if (url.contains("video")) {
+                 return "a[class=card-big _parts-video _video]";
+             }
             return "a[class=rubric-header__link]";
         }
         else if (parentElement.getDirectory().equals("directory")) {

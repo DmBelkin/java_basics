@@ -12,7 +12,7 @@ public class Main {
         Parser parser = new Parser(new ParseLevel() {
             @Override
             public String getQuery() {
-                return "a[class=menu__nav-link _is-extra]";
+                return "a";
             }
 
             @Override
