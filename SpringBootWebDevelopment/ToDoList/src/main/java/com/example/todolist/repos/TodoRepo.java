@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface TodoRepo extends CrudRepository<ToDo, Integer> {
 
-    List<ToDo> findByid(int id);
+    ToDo findByid(int id);
 
 }

@@ -8,8 +8,6 @@ import com.example.todolist.pojo.ToDo;
 import com.example.todolist.repos.TodoRepo;
 
 import java.time.LocalDateTime;
-import java.util.List;
-
 
 @RestController
 public class ToDoController {
@@ -25,8 +23,7 @@ public class ToDoController {
 
     @GetMapping(value = "/tasks/{id}")
     public ResponseEntity searchById(@RequestParam("id") int id) {
-        List<ToDo> todos= repo.findByid(id);
-        ToDo toDo = todos.get(0);
+        ToDo toDo = repo.findByid(id);
         if (toDo == null) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
@@ -52,8 +49,7 @@ public class ToDoController {
                                      @RequestParam boolean isdone,
                                      @RequestParam String title,
                                      @RequestParam String description) {
-        List<ToDo> todos= repo.findByid(id);
-        ToDo toDo = todos.get(0);
+        ToDo toDo = repo.findByid(id);
         if (toDo == null) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
@@ -74,8 +70,7 @@ public class ToDoController {
 
     @DeleteMapping(value = "/tasks")
     public ResponseEntity delete(@RequestParam("id") int id) {
-        List<ToDo> todos= repo.findByid(id);
-        ToDo toDo = todos.get(0);
+        ToDo toDo = repo.findByid(id);
         if (toDo == null) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
