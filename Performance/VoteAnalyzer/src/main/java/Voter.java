@@ -1,12 +1,14 @@
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class Voter {
 
     private String name;
-    private Date birthDay;
+    private LocalDate birthDay;
 
-    public Voter(String name, Date birthDay) {
+    public Voter(String name, LocalDate birthDay) {
         this.name = name;
         this.birthDay = birthDay;
     }
@@ -20,6 +22,8 @@ public class Voter {
     @Override
     public int hashCode() {
         long code = name.hashCode() + birthDay.hashCode();
+        //видимо блокирует создание одинаковых элементов в HashMap, так как возвращает одинаковые хэшкоды
+        //от одинаковых пар имени и дат рождения
         while (code > Integer.MAX_VALUE) {
             code = code / 10;
         }
@@ -27,15 +31,15 @@ public class Voter {
     }
 
     public String toString() {
-        SimpleDateFormat dayFormat = new SimpleDateFormat("yyyy.MM.dd");
-        return name + " (" + dayFormat.format(birthDay) + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
+        return name + " ("  +birthDay.format(formatter)+ ")";
     }
 
     public String getName() {
         return name;
     }
 
-    public Date getBirthDay() {
+    public LocalDate getBirthDay() {
         return birthDay;
     }
 }
