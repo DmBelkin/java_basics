@@ -18,6 +18,8 @@ public class XMLHandler extends DefaultHandler {
 
     private List<Voter> voters;
 
+    public static int rowsCount = 0;
+
     public XMLHandler() {
         voters = new ArrayList<>();
     }
@@ -28,6 +30,12 @@ public class XMLHandler extends DefaultHandler {
             LocalDate date = LocalDate.parse(attributes.getValue("birthDay"), formatter);
             voter = new Voter(attributes.getValue("name"), date);
             voters.add(voter);
+        }
+        if (voters.size() % 1000 == 0 && !voters.isEmpty()) {
+           printDuplicates();
+           rowsCount += 1000;
+           System.out.println(rowsCount);
+
         }
     }
 
@@ -41,10 +49,9 @@ public class XMLHandler extends DefaultHandler {
     public void printDuplicates() {
         if (connection != null) {
             try {
-                for (Voter anyVoter : voters) {
-                    connection.countVoter(anyVoter.getName(), anyVoter.getBirthDay().toString());
-                }
-                connection.printVoterCounts();
+                Insertexecutor insertexecutor = new Insertexecutor(connection.getConnection(), voters);
+                insertexecutor.execute();
+                voters.clear();
             } catch (SQLException e) {
                 e.printStackTrace();
             }

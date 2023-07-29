@@ -23,20 +23,19 @@ public class Loader {
     private static HashMap<Voter, Integer> voterCounts = new HashMap<>();
 
     public static void main(String[] args) throws Exception {
-        String fileName = "res/data-1M.xml";
+        String fileName = "res/data-18M.xml";
 
         long start = System.currentTimeMillis();
         SAXParserFactory factory = SAXParserFactory.newInstance();
         SAXParser parser = factory.newSAXParser();
-        XMLHandler handler = new XMLHandler();
-        parser.parse(new File(fileName), handler);
         DBConnection connection = new DBConnection();
+        XMLHandler handler = new XMLHandler();
         handler.setConnection(connection);
-        handler.printDuplicates();
-        connection.execute();
+        parser.parse(new File(fileName), handler);
         connection.printVoterCounts();
         long end = System.currentTimeMillis();
         System.out.println("time: " + (end - start));
+        System.out.println("fullRowsCount: " + XMLHandler.rowsCount);
     }
 
 // старый код
