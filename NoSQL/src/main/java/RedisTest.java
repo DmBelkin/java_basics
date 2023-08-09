@@ -2,6 +2,7 @@
 import org.redisson.api.RScoredSortedSet;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Random;
 
 public class RedisTest {
@@ -22,8 +23,14 @@ public class RedisTest {
 
     public static void userFabric(RedisStorage storage) {
         storage.init();
+        HashSet<Integer> setDuplicates = new HashSet<>();
         for (int i = 0; i <= 20; i++) {
             int registrationDay = (int) (i * Math.random());
+            while (setDuplicates.contains(registrationDay)) {
+                registrationDay ++;
+            }
+            setDuplicates.add(registrationDay);
+            registrationDay = registrationDay > 31? registrationDay - 31 : registrationDay;
             LocalDate registrationDate = LocalDate.now().plusDays(registrationDay);
             User user = new User(registrationDate, registrationDay);
             storage.logPageVisit(user.getUserId(), user);
