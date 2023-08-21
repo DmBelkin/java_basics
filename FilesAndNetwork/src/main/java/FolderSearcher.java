@@ -11,14 +11,13 @@ public class FolderSearcher {
 
     private String path;
 
-    private StringBuilder jsonBuilder;
+    private JsonParser parser;
 
     private List<String> csvCollect;
 
     public FolderSearcher(String path) {
         this.path = path;
         fileList = new ArrayList<>();
-        jsonBuilder = new StringBuilder();
         csvCollect = new ArrayList<>();
         folderReader(path);
         try {
@@ -41,15 +40,18 @@ public class FolderSearcher {
     }
 
     public void fileParser(List<File> fileList) throws IOException {
+        parser = new JsonParser();
         for (File file : fileList) {
             boolean isCsv = file.getName().endsWith(".csv");
             boolean isJason = file.getName().endsWith(".json");
             if (isCsv || isJason) {
                 List<String> fileRows = Files.readAllLines(Paths.get(file.getPath()));
                 if (isJason) {
+                    StringBuilder jsonBuilder = new StringBuilder();
                     for (String row : fileRows) {
                         jsonBuilder.append(row + "\n");
                     }
+                    parser.setSource(jsonBuilder);
                 } else if (isCsv) {
                     for (String row : fileRows) {
                         csvCollect.add(row + "\n");
@@ -59,11 +61,12 @@ public class FolderSearcher {
         }
     }
 
-    public StringBuilder getJsonBuilder() {
-        return jsonBuilder;
-    }
 
     public List<String> getCsvCollect() {
         return csvCollect;
+    }
+
+    public JsonParser getParser() {
+        return parser;
     }
 }

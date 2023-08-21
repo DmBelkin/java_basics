@@ -41,11 +41,10 @@ public class SiteConnectorAndParser {
 
     public void getDataFromFolder() {
         FolderSearcher searcher = new FolderSearcher("data/data");
-        JsonParser parser = new JsonParser(searcher);
         CsvParser csvParser = new CsvParser(searcher);
-        depthList.addAll(parser.getDepthList());
+        depthList.addAll(searcher.getParser().getDepthList());
         depthList.addAll(csvParser.getDepthList());
-        dateList.addAll(parser.getDateList());
+        dateList.addAll(searcher.getParser().getDateList());
         dateList.addAll(csvParser.getDateList());
     }
 

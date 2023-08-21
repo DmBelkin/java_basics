@@ -87,4 +87,13 @@ public class Station implements Comparable<Station> {
         }
         return 0;
     }
+
+    public boolean equals(Station station) {
+        if (
+        this.name.equals(station.getName()) &&
+        this.line.equals(station.getLine())) {
+            return true;
+        }
+        return false;
+    }
 }

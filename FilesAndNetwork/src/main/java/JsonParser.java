@@ -12,13 +12,14 @@ public class JsonParser {
 
     private final List<String[]> depthList;
 
-    private FolderSearcher searcher;
 
-    public JsonParser(FolderSearcher searcher) {
-        this.searcher = searcher;
+    public JsonParser() {
         depthList = new ArrayList<>();
         dateList = new ArrayList<>();
-        jsonParser(searcher.getJsonBuilder());
+    }
+
+    public void setSource(StringBuilder builder) {
+        jsonParser(builder);
     }
 
     public void jsonParser(StringBuilder builder) {
