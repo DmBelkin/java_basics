@@ -89,8 +89,7 @@ public class Station implements Comparable<Station> {
     }
 
     public boolean equals(Station station) {
-        if (
-        this.name.equals(station.getName()) &&
+        if (this.name.equals(station.getName()) &&
         this.line.equals(station.getLine())) {
             return true;
         }

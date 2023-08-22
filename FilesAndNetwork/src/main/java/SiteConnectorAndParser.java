@@ -60,12 +60,12 @@ public class SiteConnectorAndParser {
             metro.setLines(line);
             getDataFromFolder();
             List<Station> stationsToLine = stationParser(stations, line, metro);
+            setDatesAndDepths(metro);
             line.setStations(stationsToLine);
         }
     }
 
     public List<Station> stationParser(Elements stations, Line line, Metro metro) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         List<Station> result = new ArrayList<>();
         for (Element element : stations) {
             String lineNumber = element.children().attr("data-line").trim();
@@ -73,36 +73,13 @@ public class SiteConnectorAndParser {
                 Elements elements = element.getElementsByClass("single-station");
                 for (Element element1 : elements) {
                     Station station = new Station();
+                    station.setLine(line);
                     String[] stationData = element1.text().split("\\.");
                     station.setName(stationData[1].trim());
                     station.setNumber(Integer.parseInt(stationData[0]));
                     if (!element1.getElementsByClass("t-icon-metroln")
                             .attr("title").equals("")) {
                         station.setHasConnection(true);
-                    }
-                    station.setLine(line);
-                    for (String[] data : depthList) {
-                        if (data[1].equals(station.getName())) {
-                            String num = data[0].trim();
-                            if (num.contains(",")) {
-                                num = num.replaceAll(",", "\\.");
-                            }
-                            if (!Character.isDigit(num.charAt(0))) {
-                                num = num.substring(1);
-                                num = "-" + num;
-                                if (num.length() == 1) {
-                                    num = "0";
-                                }
-                            }
-                            station.setDepth(Double.parseDouble(num));
-                        }
-                    }
-                    for (String[] data : dateList) {
-                        if (data[0].equals(station.getName())) {
-                            LocalDate date = LocalDate.parse(data[1].trim().
-                                    replaceAll("\\.", "\\."), formatter);
-                            station.setDate(date);
-                        }
                     }
                     result.add(station);
                     metro.setStations(station);
@@ -111,4 +88,56 @@ public class SiteConnectorAndParser {
         }
         return result;
     }
+
+    public void setDatesAndDepths(Metro metro) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        for (Station station : metro.getStations()) {
+            for (int i = 0; i <= depthList.size() - 1; i++) {
+                String[] data = depthList.get(i);
+                if (data[1].equals(station.getName())) {
+                    if (getDuplicates(metro, station)) {
+                        depthList.remove(data);
+                        continue;
+                    }
+                    String num = data[0].trim();
+                    if (num.contains(",")) {
+                        num = num.replaceAll(",", "\\.");
+                    }
+                    if (!Character.isDigit(num.charAt(0))) {
+                        num = num.substring(1);
+                        num = "-" + num;
+                        if (num.length() == 1) {
+                            num = "0";
+                        }
+                    }
+                    station.setDepth(Double.parseDouble(num));
+                }
+            }
+            for (int j = 0; j <= dateList.size() - 1; j++) {
+                String[] data = dateList.get(j);
+                if (data[0].equals(station.getName())) {
+                    if (getDuplicates(metro, station)) {
+                        depthList.remove(data);
+                        continue;
+                    }
+                    LocalDate date = LocalDate.parse(data[1].trim().
+                            replaceAll("\\.", "\\."), formatter);
+                    station.setDate(date);
+                }
+            }
+        }
+    }
+
+    public boolean getDuplicates(Metro metro, Station station) {
+        for (Station station1 : metro.getStations()) {
+            if (station1.getName().equals(station.getName()) && !station1.equals(station)) {
+                if (station.getDate() != null || station.getDepth() > 0) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
 }

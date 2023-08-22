@@ -61,7 +61,6 @@ public class FolderSearcher {
         }
     }
 
-
     public List<String> getCsvCollect() {
         return csvCollect;
     }
