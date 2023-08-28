@@ -7,23 +7,27 @@ import java.io.Serializable;
 public class Course implements Serializable {
 
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private int courseId;
+
     private String name;
+
     private int duration;
+
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "enum('DESIGN','PROGRAMMING','MARKETING','MANAGEMENT','BUSINESS')")
     private CourseType type;
 
     private String description;
 
-
     @ManyToOne(cascade = CascadeType.ALL)
     private Teachers teacher;
+
     @Column(name = "students_count")
     private Integer studentsCount;
 
     private int price;
+
     @Column(name = "price_per_hour")
     private float pricePerHour;
 
@@ -93,13 +97,10 @@ public class Course implements Serializable {
         return pricePerHour;
     }
 
-    public void setType(CourseType type) {
-        this.type = type;
-    }
-
     public CourseType getType() {
         return type;
     }
+
     @Override
     public String toString() {
         return "courseId: " + getId() + "\n" +
@@ -107,15 +108,6 @@ public class Course implements Serializable {
                 "courseType: " + getType() + "\n" +
                 "price: " + getPrice() + "\n" +
                 "teacher" + getTeacher() + "\n";
-    }
-
-    public enum CourseType {
-        DESIGN,
-        PROGRAMMING,
-        MARKETING,
-        MANAGEMENT,
-        BUSINESS
-
     }
 
 }

@@ -2,69 +2,57 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
-@Entity
+@Entity(name = "linkedpurchaselist")
 @Table(name = "linkedpurchaselist")
 public class LinkedPurchaseList implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
-    @Column(name = "subscription_date", nullable = true)
-    private LocalDate subscriptonDate;
 
-    @Column(name = "student_id")
+    @EmbeddedId
+    private LinkedPurchaseListKey key;
+
+    @Column(name = "student_id", insertable = false, updatable = false)
     private int studentId;
 
-    @Column(name = "course_id")
+    @Column(name = "course_id", insertable = false, updatable = false)
     private int courseId;
-    @Column(nullable = true)
-    private int price;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public LocalDate getSuscriptonDate() {
-        return subscriptonDate;
-    }
-
-    public void setSuscriptonDate(LocalDate suscriptonDate) {
-        this.subscriptonDate = suscriptonDate;
+    public LinkedPurchaseListKey getKey() {
+        return key;
     }
 
     public int getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(int studentId) {
-        this.studentId = studentId;
-    }
-
     public int getCourseId() {
         return courseId;
+    }
+
+    public void setStudentId(int studentId) {
+        this.studentId = studentId;
     }
 
     public void setCourseId(int courseId) {
         this.courseId = courseId;
     }
 
-    public int getPrice() {
-        return price;
+    public void setKey(LinkedPurchaseListKey key) {
+        this.key = key;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
+    @Override
     public String toString() {
-        return "course: " + getCourseId() + "\n"  +
-                "student" + getStudentId() + "\n" +
-                "price: " + getPrice() + "\n" +
-                "date: " + getSuscriptonDate();
+        return key.getCourseId() + " - " + key.getStudentId();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof LinkedPurchaseList)) return false;
+        LinkedPurchaseList that = (LinkedPurchaseList) o;
+        return Objects.equals(getKey(), that.getKey());
+    }
+
+
 }

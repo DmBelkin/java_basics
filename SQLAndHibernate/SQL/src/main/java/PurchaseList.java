@@ -5,18 +5,19 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "Purchaselist")
 public class PurchaseList {
-    @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+
+    @EmbeddedId
+    PurchaseListKey key;
+
     @Column(name = "subscription_date")
     private LocalDate subscriptionDate;
 
-    @Column(name = "student_name")
+    @Column(name = "student_name", insertable = false, updatable = false)
     private String studentName;
 
-    @Column(name = "course_name")
+    @Column(name = "course_name", insertable = false, updatable = false)
     private String courseName;
+
     @Column(name = "price")
     private int price;
 

@@ -5,41 +5,33 @@ import java.time.LocalDate;
 @Table(name = "Subscriptions")
 public class Subscriptions {
 
+    @EmbeddedId
+    SubscriptionKey key;
 
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private Students student;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Course course;
+    @Column(name = "student_id", insertable = false, updatable = false)
+    private int studentId;
+
+    @Column(name = "course_id", insertable = false, updatable = false)
+    private int courseId;
+
     @Column (name = "subscription_date")
     private LocalDate subscriptionsDate;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
 
-    public int getId() {
-        return id;
+    public int getStudentId() {
+        return studentId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setStudentId(int studentId) {
+        this.studentId = studentId;
     }
 
-
-    public Students getStudentId() {
-        return student;
+    public int getCourseId() {
+        return courseId;
     }
 
-    public void setStudentId(Students student) {
-        this.student = student;
-    }
-
-    public Course getCourseId() {
-        return course;
-    }
-
-    public void setCourseId(Course course) {
-        this.course = course;
+    public void setCourseId(int courseId) {
+        this.courseId = courseId;
     }
 
     public LocalDate getSubscriptionsDate() {

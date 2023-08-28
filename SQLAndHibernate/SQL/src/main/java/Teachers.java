@@ -10,6 +10,7 @@ public class Teachers {
     private String name;
 
     private int salary;
+
     private int age;
 
     public int getId() {

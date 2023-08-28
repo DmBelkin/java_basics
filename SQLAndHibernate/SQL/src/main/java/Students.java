@@ -2,18 +2,17 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
-@Table(name = "Students")
+@Table(name = "students")
 public class Students {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int studentId;
 
-    @Column(name = "name")
     private String name;
-    @Column(name = "age")
+
     private int age;
 
     @Column(name = "registration_date")
@@ -49,6 +48,15 @@ public class Students {
 
     public void setRegistrationDate(LocalDate registrationDate) {
         this.registrationDate = registrationDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Students)) return false;
+        Students that = (Students) o;
+        return Objects.equals(getName(), that.getName()) &&
+                Objects.equals(getId(), that.getId());
     }
 
 }
