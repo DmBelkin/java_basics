@@ -2,7 +2,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -36,7 +35,7 @@ public class Main {
                 for (Map.Entry<String, List<Purchase>> map : purchaseList.entrySet()) {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                     if (map.getKey().equals(coursename)) {
-                        map.getValue().add(new Purchase(LocalDate.parse(subscriptionDate, formatter),
+                        map.getValue().add(new Purchase(LocalDateTime.parse(subscriptionDate, formatter),
                                 coursename));
                     }
                 }

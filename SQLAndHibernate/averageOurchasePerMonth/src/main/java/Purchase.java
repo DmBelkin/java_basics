@@ -1,9 +1,8 @@
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Purchase implements Comparable<Purchase> {
 
-    private LocalDate subscriptionsDate;
+    private LocalDateTime subscriptionsDate;
 
     private String courseName;
 
@@ -11,7 +10,7 @@ public class Purchase implements Comparable<Purchase> {
 
     private int price;
 
-    public Purchase(LocalDate subscriptionsDate, String courseName) {
+    public Purchase(LocalDateTime subscriptionsDate, String courseName) {
         this.subscriptionsDate = subscriptionsDate;
         this.courseName = courseName;
     }
@@ -20,7 +19,7 @@ public class Purchase implements Comparable<Purchase> {
 
     }
 
-    public LocalDate getSubscriptionsDate() {
+    public LocalDateTime getSubscriptionsDate() {
         return subscriptionsDate;
     }
 
@@ -52,7 +51,6 @@ public class Purchase implements Comparable<Purchase> {
     public String toString() {
         return "" + subscriptionsDate;
     }
-
     @Override
     public int compareTo(Purchase o) {
         if(subscriptionsDate.isAfter(o.getSubscriptionsDate())) {
