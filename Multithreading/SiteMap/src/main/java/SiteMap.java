@@ -36,7 +36,7 @@ public class SiteMap {
         controlSet.add(url);
     }
 
-    private static void fileWriter(StringBuilder stringBuilder) {
+    public void fileWriter(StringBuilder stringBuilder) {
         try {
             String[] arr = stringBuilder.toString().split("\n");
             FileWriter writer = new FileWriter("data/sitemap.txt", true);
