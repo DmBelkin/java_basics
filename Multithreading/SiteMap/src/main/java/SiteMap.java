@@ -1,75 +1,52 @@
 
-
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 public class SiteMap {
 
-    private Set<ParseLevel> firstLevel = new HashSet<>();
-    private  Set<ParseLevel> subLevel = new HashSet<>();
-    private Set<ParseLevel> thirdLevel = new HashSet<>();
-    private StringBuilder siteMap = new StringBuilder().append("https://lenta.ru/" + "\n");
 
-    private int count = 0;
+    private Set<String> controlSet;
+    private Set<String> linkSet;
+
+  public SiteMap() {
+      linkSet = new CopyOnWriteArraySet<>();
+      controlSet = new CopyOnWriteArraySet<>();
+  }
 
 
-    public void setLevel(ParseLevel parseLevel) {
-        if (parseLevel.getDirectory().equals("directory")) {
-            firstLevel.add(parseLevel);
-        } else if (parseLevel.getDirectory().equals("subdirectory")) {
-            subLevel.add(parseLevel);
-        } else if (parseLevel.getDirectory().equals("news")) {
-            thirdLevel.add(parseLevel);
+    public void setLinkSet(String url) {
+        linkSet.add(url);
+        if (linkSet.size() % 1000 == 0 && linkSet.size() > 0 ) {
+            StringBuilder builder = new StringBuilder();
+            for (String u : linkSet) {
+                builder.append(u + "\n");
+            }
+            fileWriter(builder);
+            linkSet.clear();
         }
     }
 
-    public void mapper() {
-        for (ParseLevel url : firstLevel) {
-            siteMap.append("\s" + url.getUrl() + "\n");
-            count++;
-            for (ParseLevel url4 : thirdLevel) {
-                if (url.getUrl().equals(url4.getParentUrl())) {
-                    siteMap.append("\s\s\s\s\s" + url4.getUrl() + "\n");
-                    count++;
-                }
+    public Set<String> getControlSet() {
+        return controlSet;
+    }
+
+    public void setControlSet(String url) {
+        controlSet.add(url);
+    }
+
+    private static void fileWriter(StringBuilder stringBuilder) {
+        try {
+            String[] arr = stringBuilder.toString().split("\n");
+            FileWriter writer = new FileWriter("data/sitemap.txt", true);
+            for (String link : arr) {
+                writer.write(link + "\n");
             }
-            for (ParseLevel url1 : subLevel) {
-                if (url1.getParentUrl().equals(url.getUrl())) {
-                    siteMap.append("\s\s" + url1.getUrl() + "\n");
-                    count++;
-                    for (ParseLevel url2 : thirdLevel) {
-                        if (url1.getUrl().equals(url2.getParentUrl())) {
-                            siteMap.append("\s\s\s\s\s" + url2.getUrl() + "\n");
-                            count++;
-                        }
-                    }
-                }
-            }
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        for (ParseLevel url1 : subLevel) {
-            if (url1.getUrl().contains("mycountry")) {
-                siteMap.append("\s\s" + url1.getUrl() + "\n");
-                count++;
-                for (ParseLevel url2 : thirdLevel) {
-                    if (url1.getUrl().equals(url2.getParentUrl())) {
-                        siteMap.append("\s\s\s\s\s" + url2.getUrl() + "\n");
-                        count++;
-                    }
-                }
-            }
-        }
-    }
-
-    public StringBuilder getSiteMap() {
-        return siteMap;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    @Override
-    public String toString() {
-        return siteMap.toString();
     }
 }
