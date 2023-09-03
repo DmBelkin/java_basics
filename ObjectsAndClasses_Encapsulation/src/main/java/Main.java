@@ -4,12 +4,12 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Dimensions object = new Dimensions(12,23,56);
-        object.Volume();
+        Dimensions dimensions = new Dimensions(12,23,56);
+        System.out.println(dimensions);
         CargoInformation cargoInformation = new CargoInformation(true,
                 false, "123AER65",
                 "madisson avenue",12, new Dimensions(1, 54, 33));
-        cargoInformation.print();
+        System.out.println(cargoInformation);;
 
         Elevator elevator = new Elevator(-3, 26);
         while (true) {
