@@ -59,11 +59,12 @@ public class CargoInformation {
     public Dimensions getDimensions (){
         return dimensions;
     }
-    public String print(){
+
+
+    public String toString(){
         String screen = "deliveryAdress:" + deliveryAdress + "\n" + "registrationNumber:" + registrationNumber + "\n" +
                 "mass = " + mass + "\n" + "isCoup:" + isCoup + "\n" + "isFragile:" + isFragile + "\n" +
-                dimensions.Volume();
-        System.out.println(screen);
+                dimensions;
         return screen;
 
     }

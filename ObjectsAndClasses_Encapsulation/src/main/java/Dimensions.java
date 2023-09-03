@@ -24,10 +24,9 @@ public class Dimensions {
         return new Dimensions(high, length, width);
     }
 
-    public String Volume() {
+    public String toString() {
         int volume = high * length * width;
         String result = "volume = " + volume + ";" + "high = " + high + ";" + "length = " + length + ";" + "width = " + width;
-        System.out.println(result);
         return result;
     }
 }

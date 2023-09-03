@@ -19,26 +19,21 @@ public class Elevator {
     public int getCurrentFloor() {
         return currentFloor;
     }
+
     public void move(int floor) {
         if (floor > maxFloor || floor < minFloor) {
             System.out.println("Error");
         }
         else if (currentFloor > floor) {
-            while (true) {
+            while (currentFloor != floor) {
                 moveDown(currentFloor);
                 System.out.println(currentFloor);
-                if (currentFloor == floor) {
-                    break;
-                }
             }
         }
         else if (currentFloor < floor) {
-            while (true) {
+            while (currentFloor != floor) {
                 moveUp(currentFloor);
                 System.out.println(currentFloor);
-                if (currentFloor == floor) {
-                    break;
-                }
             }
         }
     }
