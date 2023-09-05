@@ -29,9 +29,7 @@ public class Harddisk {
     }
 
     public String toString () {
-        System.out.println("Жесткий диск: " + "\n" + "Тип: " + getHdType() + "\n" + "Объем:"  + getMemSize()
-                + "\n" + "Вес: " + getWeight());
-        System.out.println();
-        return "";
+        return "Жесткий диск: " + "\n" + "Тип: " + getHdType() + "\n" + "Объем:"  + getMemSize()
+                + "\n" + "Вес: " + getWeight() + "\n";
     }
 }

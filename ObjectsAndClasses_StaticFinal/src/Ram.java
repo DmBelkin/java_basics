@@ -26,9 +26,7 @@ public class Ram {
 
 
     public String toString() {
-        System.out.println("Оперативная память: " + "\n" + "Тип: " + getType() + "\n" + "Объем: " +
-                    getSize() + "\n" + "Вес: " + getWeight());
-        System.out.println();
-        return "";
+        return "Оперативная память: " + "\n" + "Тип: " + getType() + "\n" + "Объем: " +
+                    getSize() + "\n" + "Вес: " + getWeight() + "\n";
     }
 }

@@ -1,8 +1,9 @@
-import java.util.concurrent.Callable;
+
 
 public class Computer {
 
     private  String vendor;
+
     private  String name;
     //Клавиатура
     private Keyboard keyboard;
@@ -15,7 +16,7 @@ public class Computer {
     //процессор
     private  Processor processor;
 
-    private static int totalweight;
+    private static int totalWeight;
 
     public Computer(String vendor, String name, Keyboard keyboard, Ram ram, Monitor monitor, Harddisk harddisk,
                     Processor processor) {
@@ -26,6 +27,7 @@ public class Computer {
         this.monitor = monitor;
         this.harddisk = harddisk;
         this.processor = processor;
+        totalWeightCalculate();
     }
 
     public Computer getVendor(String vendor) {
@@ -77,10 +79,9 @@ public class Computer {
         return processor;
     }
 
-    public int setTotalWeight() {
-        Computer.totalweight = monitor.getWeight() + harddisk.getWeight() +
-                processor.getCores() + ram.getWeight() + keyboard.getWeight();
-        return totalweight;
+    public void totalWeightCalculate() {
+        Computer.totalWeight = monitor.getWeight() + harddisk.getWeight() +
+                processor.getCpuWeight() + ram.getWeight() + keyboard.getWeight();
     }
 
     public Computer setHd(Harddisk harddisk) {
@@ -93,14 +94,15 @@ public class Computer {
     }
 
     public String toString() {
-        System.out.println("Ваша конфигурация : " + "\n" + "Производитель: " + vendor + "\n" +
-                "Серия: " + name + "\n");
-        processor.toString();
-        harddisk.toString();
-        ram.toString();
-        monitor.toString();
-        keyboard.toString();
-        System.out.println(setTotalWeight());
-        return "";
+        return "Ваша конфигурация : " + "\n" + "Производитель: " + vendor + "\n" +
+                "Серия: " + name + "\n\n" +
+        processor + "\n" +
+        harddisk + "\n" +
+        ram + "\n" +
+        monitor + "\n" +
+        keyboard + "\n" +
+                "общий вес: " + totalWeight +
+                "\n";
+
     }
 }

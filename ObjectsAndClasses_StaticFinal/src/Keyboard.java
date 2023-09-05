@@ -1,4 +1,5 @@
 public class Keyboard {
+
     private final int keyboardWeight;
     private final KeyboardType type;
     private final KeyboardLight light;
@@ -23,10 +24,8 @@ public class Keyboard {
     }
 
     public String toString (){
-        System.out.println("Клавиатура: " + "\n" + "Подсветка: " + getKeysLight() + "\n" + "Тип: " + getKeyType()
-                + "\n" + "Вес: " + getWeight());
-        System.out.println();
-        return  "";
+        return "Клавиатура: " + "\n" + "Подсветка: " + getKeysLight() + "\n" + "Тип: " + getKeyType()
+                + "\n" + "Вес: " + getWeight() + "\n";
     }
 
 }

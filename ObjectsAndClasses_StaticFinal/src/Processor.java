@@ -31,9 +31,8 @@ public class Processor {
     }
 
     public String toString () {
-        System.out.println("Процессор: " + "\n" + "Производтель: " + getManufact() + "\n" + "Тактовая частота:" +
-                getFrequency()  + "GHz" + "\n" + "Количество ядер: " + getCores() + "\n" + "Вес: " + getCpuWeight());
-        System.out.println();
-        return "";
+        return "Процессор: " + "\n" + "Производтель: " + getManufact() + "\n" + "Тактовая частота:" +
+                getFrequency()  + "GHz" + "\n" + "Количество ядер: " + getCores() + "\n" + "Вес: " + getCpuWeight() +
+                "\n";
     }
 }

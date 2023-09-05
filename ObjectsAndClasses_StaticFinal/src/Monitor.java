@@ -23,9 +23,7 @@ public class Monitor {
     }
 
     public String toString() {
-        System.out.println("Монитор: " + "\n" + "Тип: " + getType() + "\n" + "Диагональ:" + getDiag()
-                    + "\n" + "Вес: " + getWeight());
-        System.out.println();
-            return "";
+        return "Монитор: " + "\n" + "Тип: " + getType() + "\n" + "Диагональ:" + getDiag()
+                    + "\n" + "Вес: " + getWeight() + "\n";
     }
 }
