@@ -1,5 +1,4 @@
 package com.example.todolist.controllers;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +20,10 @@ public class ToDoController {
         return todos;
     }
 
+    //разобраться, почему нет доступа к параметрам методов
+
     @GetMapping(value = "/tasks/{id}")
-    public ResponseEntity searchById(@RequestParam("id") int id) {
+    public ResponseEntity searchById(@PathVariable("id") int id) {
         ToDo toDo = repo.findByid(id);
         if (toDo == null) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
@@ -77,5 +78,4 @@ public class ToDoController {
         repo.delete(toDo);
         return new ResponseEntity(HttpStatus.OK);
     }
-
 }
