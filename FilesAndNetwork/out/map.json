@@ -53,7 +53,7 @@
       },
       {
         "date": "1971-01-03",
-        "depth": -46.0,
+        "depth": 0.0,
         "hasConnection": true,
         "line": "Калининско-Солнцевская линия",
         "name": "Третьяковская"
@@ -67,7 +67,7 @@
       },
       {
         "date": "2014-01-31",
-        "depth": -73.6,
+        "depth": 0.0,
         "hasConnection": true,
         "line": "Калининско-Солнцевская линия",
         "name": "Парк Победы"
@@ -308,7 +308,7 @@
     "stations": [
       {
         "date": "1954-03-14",
-        "depth": -48.0,
+        "depth": 0.0,
         "hasConnection": true,
         "line": "Кольцевая линия",
         "name": "Киевская"
@@ -336,7 +336,7 @@
       },
       {
         "date": "1950-01-01",
-        "depth": -40.0,
+        "depth": 0.0,
         "hasConnection": true,
         "line": "Кольцевая линия",
         "name": "Павелецкая"
@@ -350,14 +350,14 @@
       },
       {
         "date": "1950-01-01",
-        "depth": -40.0,
+        "depth": 0.0,
         "hasConnection": true,
         "line": "Кольцевая линия",
         "name": "Курская"
       },
       {
         "date": "1935-05-15",
-        "depth": -37.0,
+        "depth": 0.0,
         "hasConnection": true,
         "line": "Кольцевая линия",
         "name": "Комсомольская"
@@ -378,7 +378,7 @@
       },
       {
         "date": "1938-09-11",
-        "depth": -42.5,
+        "depth": 0.0,
         "hasConnection": true,
         "line": "Кольцевая линия",
         "name": "Белорусская"
@@ -460,7 +460,7 @@
       },
       {
         "date": "1966-12-31",
-        "depth": -36.0,
+        "depth": 0.0,
         "hasConnection": true,
         "line": "Таганско-Краснопресненская линия",
         "name": "Таганская"
@@ -923,7 +923,7 @@
       },
       {
         "date": "1991-03-01",
-        "depth": -61.0,
+        "depth": 0.0,
         "hasConnection": true,
         "line": "Люблинско-Дмитровская линия",
         "name": "Петровско-Разумовская"
@@ -990,8 +990,8 @@
         "name": "Шелепиха"
       },
       {
-        "date": "null",
-        "depth": 7.0,
+        "date": "2018-02-26",
+        "depth": 0.0,
         "hasConnection": true,
         "line": "Большая Кольцевая Линия",
         "name": "Деловой центр"
@@ -1003,7 +1003,7 @@
     "stations": [
       {
         "date": "2020-12-31",
-        "depth": -20.0,
+        "depth": 0.0,
         "hasConnection": true,
         "line": "Некрасовская линия",
         "name": "Электрозаводская"
@@ -1023,8 +1023,8 @@
         "name": "Авиамоторная"
       },
       {
-        "date": "null",
-        "depth": 5.0,
+        "date": "2020-03-27",
+        "depth": 0.0,
         "hasConnection": true,
         "line": "Некрасовская линия",
         "name": "Нижегородская"
@@ -1134,7 +1134,7 @@
       },
       {
         "date": "2008-09-07",
-        "depth": -8.5,
+        "depth": 0.0,
         "hasConnection": true,
         "line": "МЦД-1",
         "name": "Славянский бульвар"
@@ -1155,35 +1155,35 @@
       },
       {
         "date": "1972-12-30",
-        "depth": -9.0,
+        "depth": 0.0,
         "hasConnection": true,
         "line": "МЦД-1",
         "name": "Беговая"
       },
       {
         "date": "1938-09-11",
-        "depth": -42.5,
+        "depth": 0.0,
         "hasConnection": true,
         "line": "МЦД-1",
         "name": "Белорусская"
       },
       {
         "date": "1988-12-31",
-        "depth": -65.0,
+        "depth": 0.0,
         "hasConnection": true,
         "line": "МЦД-1",
         "name": "Савёловская"
       },
       {
-        "date": "null",
-        "depth": 6.0,
+        "date": "2004-11-20",
+        "depth": 0.0,
         "hasConnection": true,
         "line": "МЦД-1",
         "name": "Тимирязевская"
       },
       {
         "date": "2016-09-10",
-        "depth": -65.0,
+        "depth": 0.0,
         "hasConnection": true,
         "line": "МЦД-1",
         "name": "Окружная"
@@ -1307,7 +1307,7 @@
       },
       {
         "date": "2009-12-26",
-        "depth": -14.0,
+        "depth": 0.0,
         "hasConnection": true,
         "line": "МЦД-2",
         "name": "Волоколамская"
@@ -1328,7 +1328,7 @@
       },
       {
         "date": "1975-12-30",
-        "depth": -13.0,
+        "depth": 0.0,
         "hasConnection": false,
         "line": "МЦД-2",
         "name": "Щукинская"
@@ -1356,14 +1356,14 @@
       },
       {
         "date": "1991-03-01",
-        "depth": -59.0,
+        "depth": 0.0,
         "hasConnection": true,
         "line": "МЦД-2",
         "name": "Дмитровская"
       },
       {
         "date": "1958-05-01",
-        "depth": -46.0,
+        "depth": 0.0,
         "hasConnection": false,
         "line": "МЦД-2",
         "name": "Рижская"
@@ -1377,7 +1377,7 @@
       },
       {
         "date": "1950-01-01",
-        "depth": -40.0,
+        "depth": 0.0,
         "hasConnection": true,
         "line": "МЦД-2",
         "name": "Курская"
@@ -1405,7 +1405,7 @@
       },
       {
         "date": "1966-12-31",
-        "depth": -13.0,
+        "depth": 0.0,
         "hasConnection": true,
         "line": "МЦД-2",
         "name": "Текстильщики"
@@ -1447,7 +1447,7 @@
       },
       {
         "date": "1984-12-30",
-        "depth": -8.0,
+        "depth": 0.0,
         "hasConnection": true,
         "line": "МЦД-2",
         "name": "Царицыно"
@@ -1529,7 +1529,7 @@
       },
       {
         "date": "1969-08-11",
-        "depth": -7.0,
+        "depth": 0.0,
         "hasConnection": true,
         "line": "Каховская линия",
         "name": "Каширская"
@@ -1915,21 +1915,21 @@
       },
       {
         "date": "1935-05-15",
-        "depth": -41.0,
+        "depth": 0.0,
         "hasConnection": false,
         "line": "Филевская линия",
         "name": "Арбатская"
       },
       {
         "date": "1953-04-05",
-        "depth": -8.0,
+        "depth": 0.0,
         "hasConnection": false,
         "line": "Филевская линия",
         "name": "Смоленская"
       },
       {
         "date": "1954-03-14",
-        "depth": -48.0,
+        "depth": 0.0,
         "hasConnection": true,
         "line": "Филевская линия",
         "name": "Киевская"
@@ -2004,7 +2004,7 @@
     "stations": [
       {
         "date": "2016-09-10",
-        "depth": -65.0,
+        "depth": 0.0,
         "hasConnection": true,
         "line": "Центральное Кольцо",
         "name": "Окружная"
@@ -2066,8 +2066,8 @@
         "name": "Соколиная Гора"
       },
       {
-        "date": "null",
-        "depth": 5.0,
+        "date": "1979-12-30",
+        "depth": 0.0,
         "hasConnection": true,
         "line": "Центральное Кольцо",
         "name": "Шоссе Энтузиастов"
@@ -2151,21 +2151,21 @@
       },
       {
         "date": "1958-11-07",
-        "depth": -5.0,
+        "depth": 0.0,
         "hasConnection": true,
         "line": "Центральное Кольцо",
         "name": "Кутузовская"
       },
       {
-        "date": "null",
-        "depth": 7.0,
+        "date": "2018-02-26",
+        "depth": 0.0,
         "hasConnection": true,
         "line": "Центральное Кольцо",
         "name": "Деловой центр"
       },
       {
-        "date": "null",
-        "depth": 5.0,
+        "date": "2018-02-26",
+        "depth": 0.0,
         "hasConnection": true,
         "line": "Центральное Кольцо",
         "name": "Шелепиха"
@@ -2303,7 +2303,7 @@
       },
       {
         "date": "1962-10-13",
-        "depth": -50.0,
+        "depth": 0.0,
         "hasConnection": true,
         "line": "Калужско-Рижская линия",
         "name": "Октябрьская"
@@ -2338,7 +2338,7 @@
       },
       {
         "date": "1952-01-30",
-        "depth": -50.0,
+        "depth": 0.0,
         "hasConnection": true,
         "line": "Калужско-Рижская линия",
         "name": "Проспект Мира"

@@ -2,12 +2,11 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
 import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.RecursiveTask;
+import java.util.concurrent.RecursiveAction;
 
-public class Parser extends RecursiveTask<Set<String>> {
+public class Parser extends RecursiveAction {
 
 
     private SiteMap siteMap;
@@ -20,28 +19,31 @@ public class Parser extends RecursiveTask<Set<String>> {
     }
 
     @Override
-    public Set<String> compute() {
+    public void compute() {
         List<Parser> taskList = new ArrayList<>();
-        Set<String> set = new HashSet<>();
         try {
             Document document = Jsoup.connect(url).userAgent("Mozilla/5.0" +
                     " (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)" +
-                    " Chrome/116.0.0.0 Safari/537.36").get();
+                    " Chrome/116.0.0.0 Safari/537.36").ignoreHttpErrors(true).get();
             Elements elements = document.select("a");
             for (Element element : elements) {
                 String url = element.absUrl("href");
                 String[] parseWidth = element.attr("href").split("/");
-                if (!url.startsWith("https://lenta.") ||
-                        siteMap.getControlSet().contains(url) || url.contains("#") || parseWidth.length > 6) {
+                if (!url.startsWith(this.url) || siteMap.getControlSet().contains(url) ||
+                        url.contains("#") || parseWidth.length > 6) {
                     continue;
                 }
                 System.out.println(url);
                 siteMap.setLinkSet(getSpaces(parseWidth.length) + url);
                 siteMap.setControlSet(url);
                 try {
-                    Thread.sleep(10);
+                    Thread.sleep(50);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+                }
+                if (taskList.size() > 252) {
+                    joiner(taskList);
+                    taskList.clear();
                 }
                 Parser parser = new Parser(siteMap, url);
                 parser.fork();
@@ -50,12 +52,13 @@ public class Parser extends RecursiveTask<Set<String>> {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+        joiner(taskList);
+    }
+
+    public void joiner(List<Parser> taskList) {
         for (Parser parser : taskList) {
-            for (String url : parser.join()) {
-                siteMap.setLinkSet(url);
-            }
+            parser.join();
         }
-        return set;
     }
 
     public static String getSpaces(int count) {
@@ -65,5 +68,4 @@ public class Parser extends RecursiveTask<Set<String>> {
         }
         return result;
     }
-
 }
